@@ -1,0 +1,47 @@
+// require('./bootstrap');
+import { createApp } from "vue";
+import CoreuiVue from "@coreui/vue";
+import { configure, defineRule } from "vee-validate";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+configure({
+    validateOnBlur: false,
+    validateOnChange: false,
+    validateOnInput: true,
+    validateOnModelUpdate: false,
+});
+const app = createApp({});
+app.use(CoreuiVue);
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+app.use(VueSweetalert2);
+
+defineRule('code', value => {
+    return /^[A-Za-z0-9]*$/i.test(value);
+});
+
+defineRule('phone_number', value => {
+    return /^0(\d-\d{4}-\d{4})+$/i.test(value.trim());
+});
+
+
+import Test from "./components/test.vue";
+import BtnDeleteConfirm from "./components/common/btnDeleteConfirm.vue";
+import DataEmpty from "./components/common/dataEmpty.vue";
+import PopupAlert from "./components/common/popupAlert.vue";
+import LimitPageOption from "./components/common/limitPageOption.vue";
+import CompanyCreate from "./components/company/create.vue";
+import CompanyEdit from "./components/company/edit.vue";
+import Login from "./components/login/login.vue";
+
+app.component("test", Test);
+app.component("btn-delete-confirm", BtnDeleteConfirm);
+app.component("data-empty", DataEmpty);
+app.component("popup-alert", PopupAlert);
+app.component("limit-page-option", LimitPageOption);
+app.component("company-create", CompanyCreate);
+app.component("company-edit", CompanyEdit);
+app.component("login", Login);
+
+
+app.mount("#app");
