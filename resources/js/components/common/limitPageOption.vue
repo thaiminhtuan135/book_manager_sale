@@ -1,9 +1,9 @@
 <template>
   <div class="pageSizeForm form-horizontal">
-    <span class="left">表示件数</span>
+    <span class="left">Kết quả hiển thị</span>
     <select id="pageSize" class="form-select page-size-select cursor-point" name="limit" @change="onChange($event)">
       <option v-for="value in limitPageOption" :key="'option_' + value" :value="value" v-bind:selected="value == newSizeLimit">
-        {{ value + "件" }}
+        {{ value + "" }}
       </option>
     </select>
   </div>

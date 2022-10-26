@@ -21,7 +21,10 @@ defineRule('code', value => {
 });
 
 defineRule('phone_number', value => {
-    return /^0(\d-\d{4}-\d{4})+$/i.test(value.trim());
+    return /^0(\d{9})+$/i.test(value.trim());
+});
+defineRule('dob', value => {
+    return /^(\d{4}-\d{2}-\d{2})+$/i.test(value.trim());
 });
 
 
@@ -33,6 +36,7 @@ import LimitPageOption from "./components/common/limitPageOption.vue";
 import CompanyCreate from "./components/company/create.vue";
 import CompanyEdit from "./components/company/edit.vue";
 import Login from "./components/login/login.vue";
+import Register from "./components/login/register.vue"
 
 app.component("test", Test);
 app.component("btn-delete-confirm", BtnDeleteConfirm);
@@ -42,6 +46,8 @@ app.component("limit-page-option", LimitPageOption);
 app.component("company-create", CompanyCreate);
 app.component("company-edit", CompanyEdit);
 app.component("login", Login);
+app.component("register", Register);
+
 
 
 app.mount("#app");

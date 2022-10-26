@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +23,30 @@ Route::get('/', function () {
 Route::resource('login', LoginController::class);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::resource('register', RegisterController::class);
+Route::post('check-email', [RegisterController::class, 'checkEmail'])->name('register.checkEmail');
+
 Route::group([
-    'middleware' => ['user_role']
+    'middleware' => ['user_role'],
+//    'prefix' => ['user']
 ], function () {
     Route::resource('company', CompanyController::class);
 
     Route::get('/test', function () {
         return view('admin.vi');
     });
+});
+
+Route::get('homePage', [BookController::class, 'index']);
+Route::group([
+    'middleware' => ['user_role'],
+//    'prefix' => ['user'],
+], function () {
+    Route::resource('user/book', BookController::class);
+
+//    Route::get('/test', function () {
+//        return view('admin.vi');
+//    });
 });
 
 

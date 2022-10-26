@@ -4,6 +4,9 @@ $routeName = \Route::currentRouteName();
 $routeCompanies=[
     'company.index',
 ];
+$routeBook=[
+    'user.book.index',
+];
 
 @endphp
     <!-- Main Sidebar Container -->

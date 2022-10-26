@@ -3,7 +3,7 @@
     <span class="total-item-pagination"
       >{{ (pager.currentPage - 1) * pager.pageSize + 1 }} -
       {{ (pager.pageSize * pager.currentPage > pager.totalItems) ? pager.totalItems : pager.pageSize * pager.currentPage}} / 全
-      {{ pager.totalItems }}件</span
+      {{ pager.totalItems }}</span
     >
     <ul
       v-if="pager.pages && pager.pages.length"

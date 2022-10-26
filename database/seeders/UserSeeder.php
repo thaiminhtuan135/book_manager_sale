@@ -18,11 +18,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = new User();
-        $user->company_id = 1;
-        $user->role_type = "system_admin";
+        $user->address = "bac ninh";
+        $user->dob = "2000-02-02";
         $user->role_id = UserRole::SYSTEM_ADMIN;
         $user->name = "amin";
-        $user->email = "admin@gmail.com";
+        $user->email = "tuan@gmail.com";
         $user->password = Hash::make('12345678');
         $user->save();
     }

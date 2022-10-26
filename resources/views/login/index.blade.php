@@ -2,8 +2,8 @@
 
 @section('content')
     <login :data="{{ json_encode([
-    'request' => $request,
-    'message' => $message ?? '',
-]) }}"></login>
+        'request' => $request,
+        'message' => $message ?? '',
+    ]) }}"></login>
 
 @endsection

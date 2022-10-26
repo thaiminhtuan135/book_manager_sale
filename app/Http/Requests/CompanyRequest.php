@@ -28,7 +28,7 @@ class CompanyRequest extends FormRequest
             'name' => 'required|max:255',
             'telephone' => [
                 'required',
-                'regex:/^0(\d-\d{4}-\d{4})+$/',
+                'regex:/^0(\d{9})+$/',
             ],
             'address'=>'required|max:255',
         ];

@@ -2,9 +2,8 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
 
-final class StatusCode extends Enum
+final class StatusCode
 {
     const OK = 200;
     const CREATED = 201;
