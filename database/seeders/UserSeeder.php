@@ -25,5 +25,6 @@ class UserSeeder extends Seeder
         $user->email = "tuan@gmail.com";
         $user->password = Hash::make('12345678');
         $user->save();
+
     }
 }

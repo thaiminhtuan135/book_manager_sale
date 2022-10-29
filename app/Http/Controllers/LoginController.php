@@ -53,7 +53,7 @@ class LoginController extends BaseController
                 return redirect('/test');
             }
             $this->setFlash("Đăng nhập thành công");
-            return redirect(route('company.index'));
+            return redirect(route('book.index'));
         }
         return redirect(route('login.index',['message'=>'Mật khẩu và địa chỉ của bạn không đúng']));
     }

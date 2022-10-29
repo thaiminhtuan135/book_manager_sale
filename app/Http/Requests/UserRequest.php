@@ -44,7 +44,12 @@ class UserRequest extends FormRequest
                 'required',
                 'max:255',
             !Rule::unique('users')->when(['email' => $data['email']]),
+
         ];
+        if (!Rule::unique('users')->when(['email' => $data['email']])) {
+
+            return redirect()->route('register.index');
+        }
         return $rule;
     }
 }

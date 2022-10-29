@@ -1,11 +1,10 @@
 @extends('layouts.admin')
 @section('content')
-{{--    <company-edit--}}
-{{--        :data="{{json_encode([--}}
-{{--            'urlUpdate' =>route('company.update',$company->id),--}}
-{{--            'company' => $company,--}}
-{{--            'title' => $title,--}}
-{{--            'urlBack' => route('company.index'),--}}
-{{--    ]) }}">--}}
-{{--    </company-edit>--}}
+    <book-edit
+        :data="{{json_encode([
+            'urlUpdate' =>route('book.update',$book->id),
+            'book' => $book,
+            'title' => $title,
+    ]) }}">
+    </book-edit>
 @endsection

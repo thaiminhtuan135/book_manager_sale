@@ -20,7 +20,7 @@
                   <div class="row justify-content-center">
                     <div class="col-sm-8 mb-3">
                       <div class="form-group">
-                        <Field name="email" placeholder="email" v-model="model.email" type="text" class="form-control"/>
+                        <Field name="email" placeholder="Email" v-model="model.email" type="text" class="form-control"/>
                         <ErrorMessage class="error" name="email" />
                       </div>
                     </div>
@@ -28,7 +28,7 @@
                   <div class="row justify-content-center">
                     <div class="col-sm-8 mb-3">
                       <div class="form-group">
-                        <Field class="form-control" type="password" autocomplete="off" placeholder="password" name="password" v-model="model.password"/>
+                        <Field class="form-control" type="password" autocomplete="off" placeholder="Password" name="password" v-model="model.password"/>
                         <ErrorMessage class="error" name="password" />
                       </div>
                     </div>
@@ -56,11 +56,15 @@
                   <div class="row justify-content-center">
                     <div class="col-sm-8 p-l-20">
                       <button class="btn btn-primary px-4 btn-login" type="submit">Đăng nhập</button>
+                        <a class="btn btn-secondary px-4 btn-login" :href="this.data.urlBack">
+                            <div>Quay lại trang chủ</div>
+                        </a>
                     </div>
                   </div>
                 </div>
               </div>
             </form>
+
           </VeeForm>
         </div>
       </div>

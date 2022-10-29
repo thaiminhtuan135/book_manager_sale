@@ -37,7 +37,8 @@ import CompanyCreate from "./components/company/create.vue";
 import CompanyEdit from "./components/company/edit.vue";
 import Login from "./components/login/login.vue";
 import Register from "./components/login/register.vue"
-
+import BookCreate from "./components/book/create.vue";
+import BookEdit from "./components/book/edit.vue";
 app.component("test", Test);
 app.component("btn-delete-confirm", BtnDeleteConfirm);
 app.component("data-empty", DataEmpty);
@@ -47,6 +48,9 @@ app.component("company-create", CompanyCreate);
 app.component("company-edit", CompanyEdit);
 app.component("login", Login);
 app.component("register", Register);
+app.component("book-create", BookCreate);
+app.component("book-edit", BookEdit);
+
 
 
 

@@ -5,8 +5,6 @@
 
 <script>
 export default {
-  mounted() {
-  },
   created: function () {
     if (this.data) {
       this.showNotification();
@@ -28,7 +26,7 @@ export default {
           cancelButton: 'w-100',
           title: 'sweetalert-title'
         },
-        confirmButtonText: '閉じる'
+        confirmButtonText: 'Đóng'
       }).then(function () {
         if (urlRedirect != "") {
           window.location = urlRedirect;

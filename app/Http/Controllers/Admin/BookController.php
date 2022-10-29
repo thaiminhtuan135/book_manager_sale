@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\StatusCode;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
 use App\Repositories\Book\BookInterface;
 use App\Repositories\Company\CompanyInterface;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class BookController extends BaseController
     public function index(Request $request)
     {
 //        dd($this->book->get($request));
+
         $newSizeLimit = $this->newListLimit($request);
         return view('admin.book.index',[
             'title'=> 'Quản lý sách',
@@ -42,7 +44,7 @@ class BookController extends BaseController
      */
     public function create()
     {
-        //
+        return view('admin.book.create', ['title' => 'Thêm sách']);
     }
 
     /**
@@ -51,9 +53,15 @@ class BookController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+//        dd($request->all());
+        if ($this->book->store($request)) {
+            $this->setFlash(__('Thêm sách thành công'));
+            return redirect(route('book.index'));
+        }
+        $this->setFlash(__('Thêm sách thất bại'));
+        return redirect()->route('book.create');
     }
 
     /**
@@ -64,7 +72,7 @@ class BookController extends BaseController
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -75,7 +83,14 @@ class BookController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $book = $this->book->getById($id);
+        if (!$book) {
+            return redirect(route('book.index'));
+        }
+        return view('admin.book.edit', [
+            'title' => 'Sửa sách',
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -85,9 +100,14 @@ class BookController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        if ($this->book->update($request,$id)) {
+            $this->setFlash(__('Sửa thành công'));
+            return redirect(route('book.index'));
+        }
+        $this->setFlash(__('Sửa thất bại'));
+        return redirect(route('book.update', $id));
     }
 
     /**
@@ -104,5 +124,20 @@ class BookController extends BaseController
                 'status' => StatusCode::OK
             ], StatusCode::INTERNAL_ERR);
         }
+        return response()->json([
+            'message' => 'Xóa thành công',
+            'status' => StatusCode::OK
+        ], StatusCode::OK);
+    }
+
+    public function homeList(Request $request)
+    {
+        $newSizeLimit = $this->newListLimit($request);
+        return view('admin.homePage.index',[
+            'title'=> 'Quản lý sách',
+            'request' => $request,
+            'bookList' => $this->book->get($request),
+            'newSizeLimit' => $newSizeLimit,
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <a class="dropdown-item" @click="showAlert" style="cursor: pointer">
+  <a class="btn btn-danger" @click="showAlert" style="cursor: pointer">
     <i class="fa fa-trash" aria-hidden="true"></i>
     Xóa
   </a>

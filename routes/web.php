@@ -37,7 +37,8 @@ Route::group([
     });
 });
 
-Route::get('homePage', [BookController::class, 'index']);
+
+Route::get('homePage', [BookController::class, 'homeList'])->name('homePage');
 Route::group([
     'middleware' => ['user_role'],
 //    'prefix' => ['user'],

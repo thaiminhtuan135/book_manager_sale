@@ -66,7 +66,9 @@
                                             <td>{{$book->category }}</td>
                                             <td>{{$book->release_date }}</td>
                                             <td>{{$book->number_page }}</td>
-                                            <td>{{$book->image }}</td>
+                                            <td>
+                                                <img src="{{ url('/imgBook/'.$book->image) }}" alt="" width="100" height="120">
+                                            </td>
                                             <td>
                                                 <a class="btn btn-primary"
                                                    href="{{ route('book.edit', $book->id) }}"

@@ -5,7 +5,7 @@ $routeCompanies=[
     'company.index',
 ];
 $routeBook=[
-    'user.book.index',
+    'book.index',
 ];
 
 @endphp
@@ -33,7 +33,7 @@ $routeBook=[
 {{--                        </div>--}}
                         <div class="simplebar-content">
                             <li class="nav-item">
-                                <a class="nav-link {{ in_array($routeName, $routeCompanies) ? 'active' : '' }}" href="{{ route('company.index') }}">
+                                <a class="nav-link {{ in_array($routeName, $routeBook) ? 'active' : '' }}" href="{{ route('book.index') }}">
                                     <i class="nav-icon fa fa-money" aria-hidden="true"></i>
                                     Danh sách
                                 </a>

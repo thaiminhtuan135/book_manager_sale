@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-{{--    <company-create--}}
-{{--        :data="{{ json_encode([--}}
-{{--            'urlStore' => route('company.store'),--}}
-{{--            'title' => $title,--}}
-{{--            'urlBack' => route('company.index'),--}}
-{{--        ]) }}">--}}
-{{--    </company-create>--}}
+    <book-create
+        :data="{{ json_encode([
+            'urlStore' => route('book.store'),
+            'title' => $title,
+            'urlBack' => route('book.index'),
+        ]) }}">
+    </book-create>
 @endsection
