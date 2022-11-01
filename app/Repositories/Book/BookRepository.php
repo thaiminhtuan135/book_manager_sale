@@ -18,6 +18,7 @@ class BookRepository extends BaseController implements BookInterface
     public function __construct(Book $book)
     {
         $this->book = $book;
+
     }
 
     public function get($request)

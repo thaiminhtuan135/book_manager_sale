@@ -4,7 +4,7 @@
    <register
        :data="{{json_encode([
             'urlStore' => route('register.store'),
-            'urlBack' => route('login.index'),
+            'urlBack' => route('homePage'),
             'urlCheckMail' => route('register.checkEmail')
         ])  }}">
    </register>

@@ -1,5 +1,5 @@
 <template>
   <div class="data-empty-message text-center alert alert-danger">
-    該当データがありません
+    Chưa có dữ liệu
   </div>
 </template>
