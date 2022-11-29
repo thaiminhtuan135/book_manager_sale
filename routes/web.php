@@ -79,3 +79,4 @@ Route::get('/lala', function () {
 Route::get('/cart', function () {
     return Cart::content();
 });
+Route::get('/', [LoginController::class, 'index']);
