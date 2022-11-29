@@ -1,19 +1,23 @@
 // require('./bootstrap');
-import { createApp } from "vue";
+import {createApp} from "vue";
 import CoreuiVue from "@coreui/vue";
-import { configure, defineRule } from "vee-validate";
+import {configure, defineRule} from "vee-validate";
 import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
 configure({
     validateOnBlur: false,
     validateOnChange: false,
     validateOnInput: true,
     validateOnModelUpdate: false,
 });
+
 const app = createApp({});
 app.use(CoreuiVue);
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+
 app.use(VueSweetalert2);
 
 defineRule('code', value => {
@@ -39,6 +43,15 @@ import Login from "./components/login/login.vue";
 import Register from "./components/login/register.vue"
 import BookCreate from "./components/book/create.vue";
 import BookEdit from "./components/book/edit.vue";
+import BookExport from "./components/book/export.vue";
+import ForgotPassword from "./components/forgotPassword/index.vue";
+import ResetPassword from "./components/resetPassword/index.vue";
+import SwiperSlide from "./components/common/swiper.vue"
+
+import FakeLogin from "./components/login/fakeLogin.vue";
+import fakeLogin from "./components/login/fakeLogin";
+import {VueRecaptcha} from "vue-recaptcha";
+
 app.component("test", Test);
 app.component("btn-delete-confirm", BtnDeleteConfirm);
 app.component("data-empty", DataEmpty);
@@ -50,8 +63,12 @@ app.component("login", Login);
 app.component("register", Register);
 app.component("book-create", BookCreate);
 app.component("book-edit", BookEdit);
-
-
+app.component("book-export", BookExport);
+app.component("fake-login", fakeLogin);
+app.component('vue-recaptcha', VueRecaptcha)
+app.component('forgot-password', ForgotPassword)
+app.component('reset-password', ResetPassword)
+app.component('swiper-slide', SwiperSlide)
 
 
 app.mount("#app");

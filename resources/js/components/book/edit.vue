@@ -2,18 +2,8 @@
   <div class="container-fluid">
     <div class="fade-in">
       <CCard>
-        <VeeForm
-          as="div"
-          v-slot="{ handleSubmit }"
-          @invalid-submit="onInvalidSubmit"
-        >
-          <form
-            method="POST"
-            @submit="handleSubmit($event, onSubmit)"
-            :action="data.urlUpdate"
-            ref="formData"
-            enctype="multipart/form-data"
-          >
+        <VeeForm as="div">
+          <form method="POST" :action="data.urlUpdate" ref="formData" enctype="multipart/form-data">
             <Field type="hidden" :value="csrfToken" name="_token" />
             <Field type="hidden" value="PUT" name="_method" />
             <CCardHeader class="mb-3 addBook bo">
@@ -24,197 +14,99 @@
               <div class="row mb-3">
                 <div class="col-sm-6">
                   <div class="col-sm-12 d-flex justify-content-between">
+<!--                      tittle-->
                     <div class="col-sm-5">
-                      <label class="bold-char" for="">Tiêu đề</label>
+                      <label class="bold-char" for="">{{ this.data.title1 }}</label>
                       <div>
-                        <Field
-                          id="title"
-                          placeholder="Tiêu đề"
-                          class="form-control"
-                          name="title"
-                          v-model="model.title"
-                          readonly
-                        />
+                        <Field id="title" :placeholder="this.data.title1" rules="required|max:255" class="form-control" name="title" v-model="model.title" readonly/>
                         <ErrorMessage class="error" name="title" />
                       </div>
                     </div>
+<!--                      author-->
                     <div class="col-sm-5">
-                      <label class="bold-char" for="">Tác giả</label>
+                      <label class="bold-char" for="">{{this.data.Author}}</label>
                       <div>
-                        <Field
-                          class="form-control"
-                          id="author"
-                          placeholder="Tác giả"
-                          name="author"
-                          v-model="model.author"
-                          readonly
-                        />
+                        <Field class="form-control" id="author" rules="required|max:255" :placeholder="this.data.Author" name="author" v-model="model.author" readonly/>
                         <ErrorMessage class="error" name="author" />
                       </div>
                     </div>
                   </div>
                 </div>
+<!--                  upload-->
                 <div class="col-sm-6 justify-content-center d-flex">
-                  <button
-                    disabled
-                    id="btnUpload"
-                    class="bor rounded-4 mt-5"
-                    type="button"
-                    style="
-                      height: 50px;
-                      background-color: seagreen;
-                      color: white;
-                    "
-                    @click="chooseImage"
-                  >
-                    <span
-                      class="fa fa-upload"
-                      style="color: white; margin-right: 3px"
-                    ></span
-                    >Upload
+                  <button disabled id="btnUpload" class="bor rounded-4 mt-5" type="button"
+                          style=" height: 50px; background-color: seagreen; color: white;" @click="chooseImage">
+                        <span class="fa fa-upload" style="color: white; margin-right: 3px"></span>{{ this.data.Upload }}
                   </button>
                 </div>
               </div>
               <div class="d-flex justify-content-between">
+<!--                  description-->
                 <div>
-                  <label class="mb-1 bold-char" for="">Mô tả về sách</label>
+                  <label class="mb-1 bold-char" for="">{{ this.data.Description }}</label>
                   <div>
-                    <textarea
-                      placeholder="Mô tả sách"
-                      name="description"
-                      id="description"
-                      cols="87"
-                      rows="6"
-                      disabled
-                    ></textarea>
+                      <Field as="textarea" name="description" rules="required" id="description" v-model="model.description" :placeholder="this.data.Description" class="form-control" cols="70" rows="6" readonly/>
+                      <ErrorMessage class="error" name="description" />
                   </div>
                   <div class="row d-flex justify-content-between">
+<!--                      release_date-->
                     <div class="col-sm-5">
-                      <label class="mt-3 mb-2 bold-char" for=""
-                        >Ngày phát hành
+                      <label class="mt-3 mb-2 bold-char" for="">{{this.data.Release_date}}
                       </label>
                       <div>
-                        <Field
-                          id="release_date"
-                          placeholder="XXXX-XX-XX"
-                          class="form-control"
-                          name="release_date"
-                          v-model="model.release_date"
-                          readonly
-                        />
+                        <Field id="release_date" rules="required|dob" placeholder="XXXX-XX-XX" class="form-control" name="release_date" v-model="model.release_date" readonly/>
                         <ErrorMessage class="error" name="release_date" />
                       </div>
                     </div>
+<!--                      number_page-->
                     <div class="col-sm-5">
-                      <label class="mt-3 mb-2 bold-char" for="">Số trang</label>
+                      <label class="mt-3 mb-2 bold-char" for="">{{ this.data.Number_page }}</label>
                       <div>
-                        <Field
-                          class="form-control"
-                          id="number_page"
-                          placeholder="Số trang"
-                          name="number_page"
-                          v-model="model.number_page"
-                          readonly
-                        />
+                        <Field class="form-control" rules="required" id="number_page" :placeholder="this.data.Number_page" name="number_page" v-model="model.number_page" readonly/>
                         <ErrorMessage class="error" name="number_page" />
                       </div>
                     </div>
                   </div>
                   <div class="row">
+<!--                      category-->
                     <div class="col-sm-5">
-                      <label class="mt-3 mb-2 bold-char" for="">Thể loại</label>
-                      <CFormSelect
-                        id="category"
-                        class="form-control"
-                        aria-label="支払完了"
-                        name="category"
-                        require
-                        v-model="model.category"
-                        readonly
-                        :options="options"
-                      >
+                      <label class="mt-3 mb-2 bold-char" for="">{{this.data.Category}}</label>
+                      <CFormSelect id="category" class="form-control" aria-label="支払完了" name="category"
+                                   require v-model="model.category" readonly :options="options">
                       </CFormSelect>
                       <!--                                            <p v-if="status" class="error">Thể loại bắt buộc phải chọn</p>-->
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                  <div
-                    class="searchFrom d-flex align-items-center"
-                    style="justify-content: center"
-                  >
-                    <div
-                      class="img-display"
-                      id="img"
-                      @click="chooseImage()"
-                      role="button"
-                      style="justify-content: center"
-                      :class="status ? '' : 'not-active'"
-                    >
+<!--                  image-->
+                <div class="justify-content-center">
+                  <div class="searchFrom d-flex align-items-center" style="justify-content: center">
+                    <div class="img-display" id="img" @click="chooseImage()" role="button" style="justify-content: center" :class="status ? '' : 'not-active'">
                       <div style="display: none">
-                        <input
-                          type="file"
-                          @change="onChangeWeb"
-                          ref="fileInput"
-                          accept="image/*"
-                          name="image"
-                        />
+                        <input :type="typeFile" @change="onChangeWeb" ref="fileInput" accept="image/*" name="image"/>
                       </div>
-                      <img
-                        id="anh"
-                        class="
-                          align-items-center
-                          justify-content-center
-                          mb-1
-                          mt-1
-                        "
-                        v-if="filePreviewWeb"
-                        :src="status ? filePreviewWeb : getLogo(filePreviewWeb)"
-                        style="max-width: 500px; max-height: 280px"
-                      />
-                      <img
-                        id="anh1"
-                        v-if="check"
-                        :src="getLogo(file)"
-                        class="
-                          align-items-center
-                          justify-content-center
-                          mb-1
-                          mt-1
-                        "
-                        style="max-width: 500px; max-height: 280px"
-                      />
+                      <img id="anh" class=" align-items-center justify-content-center mb-1 mt-1"
+                        v-if="filePreviewWeb" :src="filePreviewWeb" style="max-width: 500px; max-height: 280px"/>
+                        <span @click="DeleteImage" v-if="filePreviewWeb" style="font-size: 20px;" class="fa fa-trash"></span>
+<!--                        <Field class="hidden" v-model="linkImage" name="linkImage"/>-->
+
                     </div>
                   </div>
+                    <span style="display: block" class="error" v-if="hasErrImg == true">{{
+                            errMsgImage
+                        }}</span>
                 </div>
               </div>
             </CCardBody>
             <CCardFooter>
               <div class="pull-right mb-2">
-                <!--                                <button class="btn btn-primary w-100">Edit</button>-->
-                <div
-                  @click="changeStatus"
-                  class="btn btn-primary w-100"
-                  id="btnEdit"
-                >
-                  Edit
-                </div>
-                <button
-                  type="submit"
-                  id="btnSave"
-                  class="btn btn-primary w-100 hidden"
-                >
-                  Save
-                </button>
+                <div @click="changeStatus" class="btn btn-primary w-100" id="btnEdit">{{this.data.Edit1}}</div>
+                <button type="submit" id="btnSave" class="btn btn-primary w-100 hidden">{{this.data.Save}}</button>
               </div>
             </CCardFooter>
           </form>
         </VeeForm>
       </CCard>
-      <img
-        src="http://localhost/storage/image-media/03ae90ba4d544e27b4dec91b272b09ab1a3f0891.jpg"
-        alt=""
-      />
     </div>
   </div>
 </template>
@@ -243,23 +135,27 @@ export default {
     });
   },
   created() {
+      this.filePreviewWeb = this.data.book.image ? this.data.book.image : "";
     let messError = {
       en: {
         fields: {
           title: {
-            required: "Thể loại không được để trống",
-            max: "Nhập tối đa 255 ký tự",
+            required: this.data.requiredTitle,
+            max: this.data.max255,
           },
           author: {
-            required: "Tác giả không được để trống",
-            max: "Nhập tối đa 255 ký tự",
+            required: this.data.requiredAuthor,
+            max: this.data.max255,
+          },
+          description: {
+              required: this.data.requiredBookDescription,
           },
           release_date: {
-            required: "Ngày phát hành không được để trống",
-            dob: "Ngày phát hành chưa đúng định dạng",
+            required: this.data.requiredRelease_date,
+            dob: this.data.formatReleaseDate,
           },
           number_page: {
-            required: "Số trang không được để trống",
+            required: this.data.requiredNumberPage,
           },
           category: {
             required: "Thể loại không được để trống",
@@ -272,7 +168,6 @@ export default {
       generateMessage: localize(messError),
     });
   },
-
   components: {
     Loader,
     VeeForm,
@@ -284,71 +179,33 @@ export default {
   computed: {},
   props: ["data"],
   data: function () {
+      // let ac = this.data.book.image.split("/");
+      // let linkImage = ac[2];
+      // console.log(linkImage);
     return {
       csrfToken: Laravel.csrfToken,
       flagShowLoader: false,
       model: this.data.book,
       filePreviewWeb: this.data.book.image,
-      file: this.data.book.image,
       check: false,
       status: false,
-
+      statusImage: true,
+        errMsgImage: "",
+        hasErrImg: false,
+        typeFile : 'file',
+      // linkImage : linkImage,
       options: [
-        {
-          label: "Chọn thể loại",
-          value: null,
-          disabled: true,
-        },
-        {
-          label: "Tình cảm",
-          value: "Tình cảm",
-          disabled: true,
-        },
-        {
-          label: "Khoa học viễn tưởng",
-          value: "Khoa học viễn tưởng",
-          disabled: true,
-        },
-        {
-          label: "Dạy làm giàu",
-          value: "Dạy làm giàu",
-          disabled: true,
-        },
-        {
-          label: "Quản trị",
-          value: "Quản trị",
-          disabled: true,
-        },
-        {
-          label: "Kinh tế",
-          value: "Kinh tế",
-          disabled: true,
-        },
-        {
-          label: "Kỹ năng sống",
-          value: "Kỹ năng sống",
-          disabled: true,
-        },
-        {
-          label: "Chính trị - pháp luật",
-          value: "Chính trị - pháp luật",
-          disabled: true,
-        },
-        {
-          label: "Khoa học công nghệ",
-          value: "Khoa học công nghệ",
-          disabled: true,
-        },
-        {
-          label: "Tâm linh",
-          value: "Tâm linh",
-          disabled: true,
-        },
-        {
-          label: "Truyền cảm hứng",
-          value: "Truyền cảm hứng",
-          disabled: true,
-        },
+        {label: this.data.chooseCategory, value: null, disabled: true,},
+        {label: "Tình cảm", value: "Tình cảm", disabled: true,},
+        {label: "Khoa học viễn tưởng", value: "Khoa học viễn tưởng", disabled: true,},
+        {label: "Dạy làm giàu", value: "Dạy làm giàu", disabled: true,},
+        {label: "Quản trị", value: "Quản trị", disabled: true,},
+        {label: "Kinh tế", value: "Kinh tế", disabled: true,},
+        {label: "Kỹ năng sống", value: "Kỹ năng sống", disabled: true,},
+        {label: "Chính trị - pháp luật", value: "Chính trị - pháp luật", disabled: true,},
+        {label: "Khoa học công nghệ", value: "Khoa học công nghệ", disabled: true,},
+        {label: "Tâm linh", value: "Tâm linh", disabled: true,},
+        {label: "Truyền cảm hứng", value: "Truyền cảm hứng", disabled: true,},
       ],
     };
   },
@@ -365,11 +222,10 @@ export default {
       );
     },
     onSubmit() {
-      this.flagShowLoader = true;
-      this.$refs.formData.submit();
-    },
-    getLogo(logo) {
-      return "/imgBook/" + logo;
+        if (this.hasErrImg == false) {
+            this.flagShowLoader = true;
+            this.$refs.formData.submit();
+        }
     },
     changeStatus() {
       $("#btnEdit").addClass("hidden");
@@ -379,22 +235,41 @@ export default {
       $("#release_date").attr("readonly", false);
       $("#number_page").attr("readonly", false);
       $("#btnUpload").attr("disabled", false);
+      $("#deteleImage").attr("disabled", false);
       $("#category").attr("readonly", false);
-      $("#description").attr("disabled", false);
-      $("#anh").addClass("hidden", true);
+      $("#description").attr("readonly", false);
+
       for (var key in this.options) {
         this.options[key]["disabled"] = false;
       }
       this.options[0]["disabled"] = true;
       this.status = true;
       this.check = true;
-      console.log(this.filePreviewWeb);
+
     },
     onChangeWeb(e) {
-      // let fileInput = this.$refs.fileInput;
+        let Image = e.target.files[0];
+        if (
+            Image.type.includes("image/jpeg") ||
+            Image.type.includes("image/png") ||
+            Image.type.includes("image/jpg")
+        ) {
+            this.errMsgImage = "";
+            this.hasErrImg = false;
+        } else {
+            this.errMsgImage = "Bạn cần chọn ảnh đúng định dạng";
+            this.hasErrImg = true;
+            return;
+        }
+        if (Image.size >= 20971520) {
+            this.errMsgImage = "Kích thước ảnh quá lớn";
+            this.hasErrImg = true;
+            console.log(this.hasErrImg)
+        } else {
+            this.hasErrImg = false;
+        }
+
       let imgFile = e.target.files;
-      // console.log(imgFile[0]);
-      // console.log(e.target.files);
       if (imgFile && imgFile[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
@@ -402,12 +277,21 @@ export default {
         };
         reader.readAsDataURL(imgFile[0]);
       }
-      $("#anh").removeClass("hidden");
-      $("#anh1").addClass("hidden");
+        this.hasErrImg = true;
     },
     chooseImage() {
+        if (this.typeFile == "hidden") {
+            this.typeFile = "file";
+        }
       this.$refs["fileInput"].click();
     },
+      DeleteImage() {
+          // this.linkImage = "";
+          this.typeFile = "hidden";
+          this.filePreviewWeb = "";
+          this.hasErrImg = false;
+      },
+
   },
 };
 </script>

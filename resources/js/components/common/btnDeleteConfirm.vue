@@ -2,7 +2,7 @@
 <div>
   <a class="btn btn-danger" @click="showAlert" style="cursor: pointer">
     <i class="fa fa-trash" aria-hidden="true"></i>
-    Xóa
+    {{this.data.Delete}}
   </a>
   <loader :flag-show="flagShowLoader"></loader>
 </div>
@@ -17,12 +17,13 @@ export default {
   data() {
     return {
       flagShowLoader: false,
+        cancel : this.data.Cancel,
     }
   },
   components: {
     Loader
   },
-  props: ['deleteAction', 'listUrl', 'messageConfirm'],
+  props: ['deleteAction', 'listUrl', 'messageConfirm','data'],
   mounted() {},
   methods: {
     showAlert() {
@@ -30,25 +31,24 @@ export default {
       this.$swal({
         title: that.messageConfirm,
         icon: "warning",
-        confirmButtonText: "Có",
-        cancelButtonText: "Không",
+        confirmButtonText: this.data.yes,
+        cancelButtonText: this.data.no,
         showCancelButton: true
       }).then(result => {
         if (result.value) {
           that.flagShowLoader = true;
           $('.loading-div').removeClass('hidden');
-          axios
-            .delete(that.deleteAction, {
+          axios.delete(that.deleteAction, {
               _token: Laravel.csrfToken
             })
             .then(function (response) {
               that.flagShowLoader = false;
               $('.loading-div').addClass('hidden');
-              that
-                .$swal({
+              that.$swal(
+                {
                   title: response.data.message,
                   icon: "success",
-                  confirmButtonText: "閉じる"
+                  confirmButtonText: "Đóng"
                 })
                 .then(function () {
                   //   window.location.href = that.listUrl;
@@ -58,6 +58,9 @@ export default {
             .catch(error => {
               that.flagShowLoader = false;
             });
+        }
+        else {
+            this.$swal("Your item is safe!");
         }
       });
     }

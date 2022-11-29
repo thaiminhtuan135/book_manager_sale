@@ -9,4 +9,6 @@ interface BookInterface
     public function store($request);
     public function update($request, $id);
     public function destroy($id);
+    public function export($request);
+    public function checkNameBook($request);
 }

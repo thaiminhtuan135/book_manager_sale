@@ -2,8 +2,13 @@
 
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Mail\ForgotPasswordController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ResetPaswordController;
+use App\Http\Controllers\SubscriberController;
+use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +22,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Book
 Route::get('/', function () {
-    return redirect(route('login.index'));
+    return redirect(route('homePage'));
 });
+Route::resource('forgot_password', ForgotPasswordController::class);
+Route::resource('reset_password', ResetPaswordController::class);
 Route::resource('login', LoginController::class);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::resource('register', RegisterController::class);
 Route::post('check-email', [RegisterController::class, 'checkEmail'])->name('register.checkEmail');
+Route::post('check-name', [BookController::class, 'checkNameBook'])->name('book.checkName');
+Route::get('homePage', [BookController::class, 'homeList'])->name('homePage');
+Route::get('language/{language}', [LanguageController::class,'index'])->name('language.index');
 
+Route::group([
+    'middleware' => ['user_role'],
+//    'prefix' => ['user'],
+], function () {
+    Route::resource('user/book', BookController::class);
+    Route::post('export', [BookController::class, 'export'])->name('bookExport');
+
+
+
+//    Route::get('language/{language}', [LanguageController::class,'index'])->name('language.index');
+//    Route::get('/test', function () {
+//        return view('admin.vi');
+//    });
+});
+
+
+//Mail
+
+
+
+
+
+
+// company
 Route::group([
     'middleware' => ['user_role'],
 //    'prefix' => ['user']
@@ -36,19 +70,12 @@ Route::group([
         return view('admin.vi');
     });
 });
+// cart
+Route::get('/lala', function () {
+    return Cart::add('293ad', 'Product 1', 1, 9.99, 550);
 
-
-Route::get('homePage', [BookController::class, 'homeList'])->name('homePage');
-Route::group([
-    'middleware' => ['user_role'],
-//    'prefix' => ['user'],
-], function () {
-    Route::resource('user/book', BookController::class);
-
-//    Route::get('/test', function () {
-//        return view('admin.vi');
-//    });
 });
 
-
-
+Route::get('/cart', function () {
+    return Cart::content();
+});

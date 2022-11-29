@@ -9,22 +9,14 @@ class CommonComponent
 {
     public static function uploadFile($folder, $file, $fileName)
     {
-        // try {
-        //     $azure = Storage::disk('public');
-        //     if (!$fileName) {
-        //         $fileName = self::uploadFileName($file->getClientOriginalExtension());
-        //     }
-        //     return $azure->putFileAs($folder, $file, $fileName);
-        // } catch (Exception $exception) {
-        //     return false;
-        // }
-        // return true;
-
         try {
+//            $azure = Storage::disk('public');
+//            $path = $azure->putFileAs($folder, $file, $fileName);
+//
+//            return Storage::disk('public')->url($path);
             $azure = Storage::disk('public');
-            $path = $azure->putFileAs($folder, $file, $fileName);
 
-            return Storage::disk('public')->url($path);
+            return $azure->putFileAs($folder, $file, $fileName);
         } catch (Exception $exception) {
             return false;
         }

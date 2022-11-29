@@ -25,6 +25,7 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
+        $image = $this->hasFile('image');
         $rule = [
             'title' => 'required|max:255',
             'author'=>'required|max:255',
@@ -32,6 +33,9 @@ class BookRequest extends FormRequest
             'number_page' => 'required',
             'category' => 'required',
         ];
+        if ($image) {
+            $rule['image'] = 'max:20480|image|mimes:jpeg,png,jpg';
+        }
         return $rule;
     }
 }

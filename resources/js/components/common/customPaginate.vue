@@ -1,10 +1,8 @@
 <template>
   <nav class="musashi-pagination" v-if="pager.pages && pager.pages.length">
-    <span class="total-item-pagination"
-      >{{ (pager.currentPage - 1) * pager.pageSize + 1 }} -
+    <span class="total-item-pagination">{{ (pager.currentPage - 1) * pager.pageSize + 1 }} -
       {{ (pager.pageSize * pager.currentPage > pager.totalItems) ? pager.totalItems : pager.pageSize * pager.currentPage}} / 全
-      {{ pager.totalItems }}</span
-    >
+      {{ pager.totalItems }}</span>
     <ul
       v-if="pager.pages && pager.pages.length"
       class="pagination"

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CompanyInterface::class, CompanyRepository::class);
         $this->app->bind(BookInterface::class, BookRepository::class);
         $this->app->bind(UsersInterface::class, UsersRepository::class);
+        $this->app->register(\Illuminate\Mail\MailServiceProvider::class);
     }
 
     /**

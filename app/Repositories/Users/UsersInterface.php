@@ -10,5 +10,7 @@ interface UsersInterface
     public function update($request, $id);
     public function destroy($id);
     public function checkMail($request);
-
+    public function checkMailForgotPassword($request);
+    public function resetPass($request);
+    public function savePass($user ,$request);
 }

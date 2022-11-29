@@ -17,7 +17,7 @@ class LoginController extends BaseController
     {
 //        dd($request->all());
         return view('login.index', [
-            'title' => 'Dang nhap trang quan ly',
+            'title' => __('LoginManager'),
             'message' => $request->message,
             'request' => $request->all(),
         ]);
@@ -52,10 +52,10 @@ class LoginController extends BaseController
 //                Auth::guard('user')->logout();
                 return redirect('/test');
             }
-            $this->setFlash("Đăng nhập thành công");
+            $this->setFlash(__('LoginSuccess'));
             return redirect(route('book.index'));
         }
-        return redirect(route('login.index',['message'=>'Mật khẩu và địa chỉ của bạn không đúng']));
+        return redirect(route('login.index',['message'=> __('Alert')]));
     }
 
     /**
