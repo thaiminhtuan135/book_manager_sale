@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Providers;
 
 use App\Repositories\Book\BookInterface;
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BookInterface::class, BookRepository::class);
         $this->app->bind(UsersInterface::class, UsersRepository::class);
         $this->app->register(\Illuminate\Mail\MailServiceProvider::class);
+
+
     }
 
     /**
