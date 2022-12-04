@@ -47,6 +47,7 @@
         "vue-upload-drop-images": "^1.0.7",
         "vue3-carousel": "^0.1.40",
         "vue3-nl2br": "^0.1.5",
-        "yup": "^0.32.11"
+        "yup": "^0.32.11",
+        "awesome-vue-star-rating": "1.0.8"
     }
 }

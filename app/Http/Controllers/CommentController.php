@@ -2,42 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Book\BookRepository;
+use App\Enums\StatusCode;
+use App\Models\Comment;
 use App\Repositories\Comment\CommentRepository;
-use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProductController extends BaseController
+class CommentController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    private $book;
-
-    private $product;
-
     private $comment;
-    public function __construct(BookRepository $book, ProductRepository $product , CommentRepository $comment)
+    public function __construct(CommentRepository $comment)
     {
-        $this->book = $book;
-        $this->product = $product;
         $this->comment = $comment;
     }
 
     public function index(Request $request)
     {
-        $newSizeLimit = $this->newListLimit($request);
-        return view('product.product', [
-            'title' => 'Sản phẩm',
-            'request' => $request,
-            'bookList' => $this->book->get($request),
-            'newSizeLimit' => $newSizeLimit,
-        ]);
+        //
     }
 
+    // public function handleSelect(Request $request)
     /**
      * Show the form for creating a new resource.
      *
@@ -56,15 +45,13 @@ class ProductController extends BaseController
      */
     public function store(Request $request)
     {
-        if ($this->product->store($request)) {
-            $this->setFlash(__('Thêm giỏ hàng thành công'));
-
-            return redirect(route('card.index'));
-        }
-        $this->setFlash(__('Thêm giỏ hàng thất bại'), 'error');
-
-        return redirect()->route('card.index', $request->book_id);
-
+//        $comment = Comment::created([
+//            'body' => $request->body,
+//            'user_id' => Auth::guard('user')->user()->id,
+//            'is_published' => 1,
+//            'book_id' => $request->id,
+//        ]);
+//        return response($comment, 201);
     }
 
     /**
@@ -112,14 +99,34 @@ class ProductController extends BaseController
         //
     }
 
-    public function bookDetail(Request $request, $id)
+     public function handleAddComment(Request $request)
+     {
+
+         $comment = $this->comment->store($request);
+
+         if ($comment) {
+             return response()->json([
+                 'valid' => $comment,
+             ], StatusCode::OK);
+         }
+
+         return response()->json([
+             'success' => false,
+         ], StatusCode::BAD_REQUEST);
+     }
+
+    public function handleGetComment(Request $request)
     {
-        $bookInfo = $this->book->getById($id);
         $comments = $this->comment->get($request);
-        return view('product.book_detail', [
-            'title' => 'Chi tiết sản phẩm',
-            'book' => $bookInfo,
-            'comments' => $comments,
-        ]);
-    }
+        if ($comments) {
+            return response()->json([
+                'valid' => $comments,
+            ], StatusCode::OK);
+        }
+
+        return response()->json([
+            'success' => false,
+        ], StatusCode::BAD_REQUEST);
+     }
+
 }

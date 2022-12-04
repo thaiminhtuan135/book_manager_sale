@@ -10,4 +10,6 @@ final class StatusCode
     const ERROR = 'error';
     const SUCCESS = 'success';
     const WARNING = 'warning';
+    const BAD_REQUEST = 400;
+
 }

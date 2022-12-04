@@ -30,6 +30,7 @@
                         <a class="btn btn-primary" style="margin-left: 100px;" @click="changeStatus"><i style="margin-right: 4px;" class="fa-regular fa-thumbs-up"></i>Thích {{status}}</a>
                         <a class="btn btn-primary" style="margin-left: 20px;">Chia sẻ</a>
                     </div>
+
                     <div class="mt-2" style="margin-left: 100px; font-size: 20px;">Tình trạng : Còn hàng </div>
                     <label style="margin-left: 100px;font-size: 20px;" for="amount">Số lượng</label>
                     <Field  class="form-control amount mt-2" v-model="amount" id="amount" rules="required|amount|number" name="amount"/>
@@ -44,10 +45,18 @@
         </CCardFooter>
             </form>
         </VeeForm>
+        <div>
+            <CommentWrapper
+                :comments="this.data.comments"
+                :urlStoreComment="this.urlStoreComment"
+                :urlGetComment="this.urlGetComments"
+            />
+        </div>
     </CCard>
 </template>
 
 <script>
+import CommentWrapper from "../comments/commentWrapper";
 import {
     Form as VeeForm,
     Field,
@@ -79,6 +88,7 @@ export default {
         Toggle,
         Datepicker,
         UploadImages,
+        CommentWrapper,
 
     },
     computed: {},
@@ -91,6 +101,8 @@ export default {
             filePreviewWeb: "",
             status: 0,
             amount: "",
+            urlStoreComment: this.data.urlStoreComment,
+            urlGetComments: this.data.urlGetComments,
 
 
         };
@@ -109,7 +121,6 @@ export default {
             },
         };
         defineRule("amount", (value) => {
-
             if (value < 0) {
                 return false
             }

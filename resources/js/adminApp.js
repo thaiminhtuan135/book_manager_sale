@@ -5,8 +5,8 @@ import {configure, defineRule} from "vee-validate";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-
-
+// window.Vue = require('vue')
+// window.eventBus = new Vue({});
 configure({
     validateOnBlur: false,
     validateOnChange: false,
@@ -56,6 +56,7 @@ import BookDetail from "./components/product/book_detail.vue"
 import FakeLogin from "./components/login/fakeLogin.vue";
 import fakeLogin from "./components/login/fakeLogin";
 import {VueRecaptcha} from "vue-recaptcha";
+// import Vue from "laravel-mix/src/components/Vue";
 
 app.component("test", Test);
 app.component("btn-delete-confirm", BtnDeleteConfirm);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Mail\ForgotPasswordController;
@@ -47,6 +48,8 @@ Route::group([
     Route::get('product/{id}', [ProductController::class, 'bookDetail'])->name('product.detail');
     Route::resource('user/product', ProductController::class);
     Route::resource('user/card', CardController::class);
+    Route::post('/addComment', [CommentController::class, 'handleAddComment'])->name('user.addComment');
+    Route::post('/getComment', [CommentController::class, 'handleGetComment'])->name('user.getComment');
 
 
 
