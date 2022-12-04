@@ -99,22 +99,21 @@ class BookRepository extends BaseController implements BookInterface
         $bookInfo->release_date = $request->release_date;
         $bookInfo->number_page = $request->number_page;
 
-        if ($bookInfo->image) {
+        if ($request->statusDelete == 1) {
             if (!$request->hasFile('image')) {
                 $filename = explode('/', $bookInfo->image);
                 CommonComponent::deleteFile('image-media', $filename[3]);
                 $bookInfo->image = null;
 
             }
-        }
 
+        }
         if ($bookInfo->image) {
             if ($request->hasFile('image')) {
                 $fileWeb = $request->file('image');
                 $extensionWeb = $fileWeb->getClientOriginalExtension(); // lay .png
                 $fileNameWeb = CommonComponent::uploadFileName($extensionWeb);
                 $pathWeb = CommonComponent::uploadFile('image-media', $fileWeb, $fileNameWeb);
-//                $fileWeb->move('imgBook/', $fileNameWeb);
                 $filename = explode('/', $bookInfo->image);
                 CommonComponent::deleteFile('image-media', $filename[3]);
                 $bookInfo->image = '/storage/' . $pathWeb;
