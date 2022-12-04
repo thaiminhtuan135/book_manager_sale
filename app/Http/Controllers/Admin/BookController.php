@@ -65,6 +65,7 @@ class BookController extends BaseController
         }
         $this->setFlash(__('Thêm sách thất bại'));
         return redirect()->route('book.create');
+
     }
 
     /**

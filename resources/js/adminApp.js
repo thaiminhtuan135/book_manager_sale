@@ -6,6 +6,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
+
 configure({
     validateOnBlur: false,
     validateOnChange: false,
@@ -15,6 +16,7 @@ configure({
 
 const app = createApp({});
 app.use(CoreuiVue);
+app.use(CommentGrid);
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
@@ -23,7 +25,9 @@ app.use(VueSweetalert2);
 defineRule('code', value => {
     return /^[A-Za-z0-9]*$/i.test(value);
 });
-
+defineRule('number', value => {
+    return /^[0-9]*$/i.test(value);
+});
 defineRule('phone_number', value => {
     return /^0(\d{9})+$/i.test(value.trim());
 });
@@ -31,7 +35,7 @@ defineRule('dob', value => {
     return /^(\d{4}-\d{2}-\d{2})+$/i.test(value.trim());
 });
 
-
+import CommentGrid from 'vue-comment-grid'
 import Test from "./components/test.vue";
 import BtnDeleteConfirm from "./components/common/btnDeleteConfirm.vue";
 import DataEmpty from "./components/common/dataEmpty.vue";
@@ -47,6 +51,7 @@ import BookExport from "./components/book/export.vue";
 import ForgotPassword from "./components/forgotPassword/index.vue";
 import ResetPassword from "./components/resetPassword/index.vue";
 import SwiperSlide from "./components/common/swiper.vue"
+import BookDetail from "./components/product/book_detail.vue"
 
 import FakeLogin from "./components/login/fakeLogin.vue";
 import fakeLogin from "./components/login/fakeLogin";
@@ -69,6 +74,8 @@ app.component('vue-recaptcha', VueRecaptcha)
 app.component('forgot-password', ForgotPassword)
 app.component('reset-password', ResetPassword)
 app.component('swiper-slide', SwiperSlide)
+app.component('book-detail', BookDetail)
+app.component('comment-grid', CommentGrid)
 
 
 app.mount("#app");

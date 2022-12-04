@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Mail\ForgotPasswordController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPaswordController;
 use App\Http\Controllers\SubscriberController;
@@ -42,6 +44,9 @@ Route::group([
 ], function () {
     Route::resource('user/book', BookController::class);
     Route::post('export', [BookController::class, 'export'])->name('bookExport');
+    Route::get('product/{id}', [ProductController::class, 'bookDetail'])->name('product.detail');
+    Route::resource('user/product', ProductController::class);
+    Route::resource('user/card', CardController::class);
 
 
 

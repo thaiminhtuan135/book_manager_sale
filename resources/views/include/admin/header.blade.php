@@ -43,6 +43,16 @@
                     </a>
                 </div>
             </li>
+            <li>
+                <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="avatar avatar-md">
+                        <a style="text-decoration: none" href="{{route('card.index')}}">
+                        <i class="fa-solid fa-cart-flatbed"></i>
+                        </a>
+
+                    </div>
+                </a>
+            </li>
         </ul>
         </div>
 {{--    <div class="header-divider"></div>--}}

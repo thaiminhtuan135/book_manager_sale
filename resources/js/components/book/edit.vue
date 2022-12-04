@@ -83,6 +83,11 @@
                   <div class="searchFrom d-flex align-items-center" style="justify-content: center">
                     <div class="img-display" id="img" @click="chooseImage()" role="button" style="justify-content: center" :class="status ? '' : 'not-active'">
                       <div style="display: none">
+                          <Field
+                              class="hidden"
+                              v-model="statusDelete"
+                              name="statusDelete"
+                          />
                         <input :type="typeFile" @change="onChangeWeb" ref="fileInput" accept="image/*" name="image"/>
                       </div>
                       <img id="anh" class=" align-items-center justify-content-center mb-1 mt-1"
@@ -207,6 +212,7 @@ export default {
         {label: "Tâm linh", value: "Tâm linh", disabled: true,},
         {label: "Truyền cảm hứng", value: "Truyền cảm hứng", disabled: true,},
       ],
+        statusDelete : 0
     };
   },
   methods: {
@@ -278,6 +284,7 @@ export default {
         reader.readAsDataURL(imgFile[0]);
       }
         this.hasErrImg = true;
+      this.statusDelete =1;
     },
     chooseImage() {
         if (this.typeFile == "hidden") {
@@ -290,6 +297,7 @@ export default {
           this.typeFile = "hidden";
           this.filePreviewWeb = "";
           this.hasErrImg = false;
+          this.statusDelete = 1;
       },
 
   },
