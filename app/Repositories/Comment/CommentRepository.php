@@ -5,6 +5,7 @@ namespace App\Repositories\Comment;
 use App\Models\Comment;
 use App\Http\Controllers\BaseController;
 use App\Repositories\Comment\CommentInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -36,7 +37,7 @@ class CommentRepository extends BaseController implements CommentInterface
         $this->comment->book_id = $request->book_id;
         $this->comment->user_id = Auth::guard('user')->id();
         $this->comment->is_published = 1;
-
+        $this->comment->time = Carbon::now()->format('Y-m-d H:i:s');
         if ($this->comment->save()) {
             DB::commit();
             return $this->comment;

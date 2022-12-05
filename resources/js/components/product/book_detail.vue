@@ -53,9 +53,11 @@
             />
         </div>
     </CCard>
+
 </template>
 
 <script>
+import StarRating from "vue-dynamic-star-rating";
 import CommentWrapper from "../comments/commentWrapper";
 import {
     Form as VeeForm,
@@ -89,6 +91,7 @@ export default {
         Datepicker,
         UploadImages,
         CommentWrapper,
+        StarRating
 
     },
     computed: {},

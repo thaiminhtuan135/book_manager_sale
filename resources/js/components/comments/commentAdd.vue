@@ -37,11 +37,13 @@ export default {
             axios
                 .post(this.urlStoreComment, postData)
                 .then((res) => {
+                    this.$emit('add-comment');
                         this.comment = ''
                 }).catch(() => {
             });
             // this.window.location.reload();
-            location.reload();
+            // location.reload();
+
         },
     }
 }

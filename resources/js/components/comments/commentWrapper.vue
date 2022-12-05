@@ -1,23 +1,25 @@
 <template>
         <div class="comment-wrapper">
-            <CommentAdd :urlStoreComment="this.urlStoreComment"/>
+            <CommentAdd @add-comment="loadComments" :urlStoreComment="this.urlStoreComment"/>
             <div v-for="comment in comments" :key="comment.id">
 <!--                <Comment :comment="comment"/>-->
                 <div class="d-flex justify-content-center mb-2">
                     <div class="chat-component">
                         <div class="flex flex-column w-full">
-
                             <div class="d-flex mt-2">
-                                <p><i class="fa-solid fa-user-ninja image"></i></p>
-                                <p class="user_name">{{comment.users.name}} :</p>
+                                <p style="display: inline"><i class="fa-solid fa-user-ninja image"></i></p>
+                                <p  style="display: inline" class="user_name">{{comment.users.name}} {{comment.time}}</p>
+                                <i @click="click" role="button" class="fa-solid fa-reply pull-right mt-1 icon_reply"></i>
+                                <span @click="click" role="button">Reply</span>
+
                             </div>
                             <div>
-                                <p class="comment">{{comment.body}}</p>
+                                <p  style="overflow-wrap: break-word; width: 1000px;" class="comment">{{comment.body}}</p>
                             </div>
-
                         </div>
                     </div>
-                  </div>
+                </div>
+<!--                <div v-if="status">tuan</div>-->
             </div>
 
         </div>
@@ -67,6 +69,7 @@ export default {
         let uri = window.location.href.split("/");
         this.book_id = uri[4];
         this.loadComments();
+
     },
     props: ['comments','data','urlStoreComment','urlGetComment'],
     components: {
@@ -81,7 +84,9 @@ export default {
     data() {
         return {
             comments: [],
-            book_id : ''
+            book_id : '',
+            status: false,
+
         }
     },
     methods : {
@@ -97,6 +102,9 @@ export default {
                 }).catch(() => {
             });
         },
+        click() {
+            this.status = !this.status;
+        },
     }
 
 }
@@ -105,8 +113,8 @@ export default {
 <style scoped>
 .comment{
     margin-left: 5px;
-    color: white;
-    background-color: blue;
+    /*color: white;*/
+    /*background-color: blue;*/
     border-radius: 20px;
     padding: 0 10px 0 10px;
     width: fit-content;
@@ -127,5 +135,12 @@ export default {
 }
 .image{
     font-size: 30px;
+}
+.icon_reply{
+    margin-left: 750px;
+    margin-right: 5px;
+}
+.text-reply{
+    font-weight: 700;
 }
 </style>
