@@ -35685,6 +35685,56 @@ var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "d-flex justify-content-center"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "stars"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "star star-5",
+    id: "star-5",
+    type: "radio",
+    name: "star"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "star star-5",
+    "for": "star-5"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "star star-4",
+    id: "star-4",
+    type: "radio",
+    name: "star"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "star star-4",
+    "for": "star-4"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "star star-3",
+    id: "star-3",
+    type: "radio",
+    name: "star"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "star star-3",
+    "for": "star-3"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "star star-2",
+    id: "star-2",
+    type: "radio",
+    name: "star"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "star star-2",
+    "for": "star-2"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "star star-1",
+    id: "star-1",
+    type: "radio",
+    name: "star"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "star star-1",
+    "for": "star-1"
+  })])], -1
+  /* HOISTED */
+  );
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
 
@@ -35792,7 +35842,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
-      , ["onInvalidSubmit"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentWrapper, {
+      , ["onInvalidSubmit"]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CommentWrapper, {
         comments: _this.data.comments,
         urlStoreComment: _this.urlStoreComment,
         urlGetComment: _this.urlGetComments
@@ -36326,7 +36376,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.amount[data-v-407b9068]{\n    margin-left: 100px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.amount[data-v-407b9068]{\n    margin-left: 100px;\n}\n.container[data-v-407b9068]{\n    width: 400px;\n    /*background: #111;*/\n    padding: 20px 30px;\n    border: 1px solid #444;\n    border-radius: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-direction: column;\n}\n.star-widget input[data-v-407b9068]{\n    display: none;\n}\nbody[data-v-407b9068]{\n    background-color: #eee;\n}\ndiv.stars[data-v-407b9068] {\n\n    width: 270px;\n\n    display: inline-block;\n}\n.mt-200[data-v-407b9068]{\n    margin-top:200px;\n}\ninput.star[data-v-407b9068] { display: none;\n}\nlabel.star[data-v-407b9068] {\n    float: right;\n    padding: 10px;\n    font-size: 36px;\n    color: #4A148C;\n    transition: all .2s;\n}\ninput.star:checked ~ label.star[data-v-407b9068]:before {\n    content: '\\f005';\n    color: #FD4;\n    transition: all .25s;\n}\ninput.star-5:checked ~ label.star[data-v-407b9068]:before {\n    color: #FE7;\n    text-shadow: 0 0 20px #952;\n}\ninput.star-1:checked ~ label.star[data-v-407b9068]:before { color: #F62;\n}\nlabel.star[data-v-407b9068]:hover { transform: rotate(-15deg) scale(1.3);\n}\nlabel.star[data-v-407b9068]:before {\n\n    content: '\\f006';\n\n    font-family: FontAwesome;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 //        Gloudemans\Shoppingcart\Facades\Cart::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class
     ],
 
     /*
@@ -193,6 +194,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+//        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class
     ])->toArray(),
 
 ];
