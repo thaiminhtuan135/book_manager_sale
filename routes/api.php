@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BookApiController;
 use App\Http\Controllers\Api\YourController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,4 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
     Route::resource('book', BookApiController::class);
 });
+Route::post('/webhook', [StripeController::class, 'webhook']);

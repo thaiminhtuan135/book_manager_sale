@@ -27,6 +27,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@vee-validate/i18n": "^4.5.10",
         "@vee-validate/rules": "^4.5.10",
+        "@vue-stripe/vue-stripe": "^4.4.4",
         "@vueform/toggle": "^2.0.2",
         "@vuepic/vue-datepicker": "^3.4.8",
         "awesome-vue-star-rating": "1.0.8",

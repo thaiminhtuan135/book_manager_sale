@@ -34,7 +34,6 @@ class UsersRepository extends BaseController implements UsersInterface
 
     public function store($request)
     {
-
         return $this->user->create([
             'name' => $request->name,
             'address' => $request->address,
@@ -43,6 +42,7 @@ class UsersRepository extends BaseController implements UsersInterface
             'telephone' => $request->telephone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'customer_id' => $request->customer_id,
         ]);
 //        $userInfo = $this->user;
 //        DB::beginTransaction();

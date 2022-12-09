@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Components;
+
+use Illuminate\Support\Facades\Log;
+
+class StripeComponent
+{
+    public static function createCustomer($email,$name)
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+        try {
+            return $stripe->customers->create([
+                'email' => $email,
+                'name' => $name,
+            ]);
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
+    }
+
+//    public static function addProduct( $description)
+//    {
+//        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+//        try {
+//            return $stripe->products->create([
+//                'description' => $description,
+//
+//
+//            ]);
+//        } catch (\Throwable $th) {
+//            Log::info($th->getMessage());
+//        }
+//    }
+}

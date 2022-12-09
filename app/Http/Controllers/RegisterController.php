@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\StripeComponent;
 use App\Enums\StatusCode;
 use App\Http\Requests\UserRequest;
 use App\Repositories\Company\CompanyInterface;
@@ -63,8 +64,10 @@ class RegisterController extends BaseController
                 $data->email = $request["email" . $i];
                 $data->role_id = $request["role_id"];
                 $data->password = $request["password" . $i];
-//                dd($data);
+                $customer = StripeComponent::createCustomer($request["email" . $i], $request["name" . $i]);
+                $data->customer_id = $customer->id;
                 $this->u->store($data);
+
             }
 
             $this->setFlash(__('RegisterSuccess'));

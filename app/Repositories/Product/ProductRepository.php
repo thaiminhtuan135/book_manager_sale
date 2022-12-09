@@ -87,4 +87,11 @@ class ProductRepository extends BaseController implements ProductInterface
         $products = $productBuilder->paginate(10);
         return $products;
     }
+    public function getCard($request)
+    {
+        $productBuilder = $this->product;
+
+        $productBuilder = $productBuilder->with('books')->where('user_id', Auth::guard('user')->user()->id)->get();
+        return $productBuilder;
+    }
 }

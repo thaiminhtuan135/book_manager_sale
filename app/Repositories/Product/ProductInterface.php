@@ -10,5 +10,6 @@ interface ProductInterface
     public function update($request, $id);
     public function destroy($id);
     public function getCardDetail($request);
+    public function getCard($request);
 
 }

@@ -31,6 +31,7 @@ class BookApiController extends Controller
         }
         return response()->json([
             'data' => $books,
+//            'dsada' => 'dsa',
         ], StatusCode::OK);
     }
 
@@ -52,7 +53,12 @@ class BookApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $this->book->store($request);
+        if ($this->book->store($request)) {
+            return response()->json([
+                'message' => 'Thêm thành công',
+            ], 200);
+        }
     }
 
     /**
@@ -61,6 +67,42 @@ class BookApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+//    /**
+//     * @OA\Get(
+//     *      path="/api/auth/book/{id}",
+//     *      tags={"User Bukken"},
+//     *      summary="Get user bukken detail",
+//     *      security={{"bearerAuth":{}}},
+//     *      @OA\Parameter(
+//     *          name="id",
+//     *          in="path",
+//     *          required=true,
+//     *          @OA\Schema(
+//     *              type="integer",
+//     *              example="1"
+//     *          )
+//     *      ),
+//     *      @OA\Response(
+//     *          response=200,
+//     *          description="Success",
+//     *          @OA\MediaType(
+//     *              mediaType="application/json",
+//     *          )
+//     *      ),
+//     *      @OA\Response(
+//     *          response=400,
+//     *          description="Invalid request"
+//     *      ),
+//     *      @OA\Response(
+//     *          response=401,
+//     *          description="Unauthorized"
+//     *      ),
+//     *      @OA\Response(
+//     *          response=500,
+//     *          description="Internal Server Error"
+//     *      ),
+//     *  )
+//     **/
     public function show($id)
     {
         $book = $this->book->getById($id);

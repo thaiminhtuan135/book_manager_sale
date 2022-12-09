@@ -10,6 +10,7 @@ use App\Http\Controllers\Mail\ForgotPasswordController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPaswordController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SubscriberController;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Support\Facades\Route;
@@ -59,7 +60,11 @@ Route::group([
 //    });
 });
 
-
+Route::resource('stripe', StripeController::class);
+//Route::get('{any}', [LoginController::class, 'index']);
+Route::get('/getSession', [StripeController::class,'getSession']);
+Route::get('/cancel', function (){ return view('app');});
+Route::get('/success', function (){ return view('app');});
 //Mail
 
 

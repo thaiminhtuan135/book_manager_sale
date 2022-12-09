@@ -57,6 +57,7 @@ import FakeLogin from "./components/login/fakeLogin.vue";
 import fakeLogin from "./components/login/fakeLogin";
 import {VueRecaptcha} from "vue-recaptcha";
 // import Vue from "laravel-mix/src/components/Vue";
+import Stripe from "./components/stripe/index.vue"
 
 app.component("test", Test);
 app.component("btn-delete-confirm", BtnDeleteConfirm);
@@ -77,6 +78,7 @@ app.component('reset-password', ResetPassword)
 app.component('swiper-slide', SwiperSlide)
 app.component('book-detail', BookDetail)
 app.component('comment-grid', CommentGrid)
+app.component('stripe', Stripe)
 
 
 app.mount("#app");
