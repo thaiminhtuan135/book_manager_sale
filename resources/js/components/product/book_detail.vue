@@ -19,10 +19,28 @@
         <CCardBody>
             <div class="d-flex">
                 <div>
-                    <div style="margin-left:300px;">
+                    <div style="margin-left:300px;" class="d-flex flex-column">
                         <img :src="filePreviewWeb" alt="" width="600" height="500" style="float: right">
+                        <div class="d-flex justify-content-center">
+                            <div class="stars">
+                                <input class="star star-5" id="star-5" type="radio" name="star"/>
+                                <label @mouseover="click5" class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                <label @mouseover="click4" class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                <label @mouseover="click3" class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                <label @mouseover="click2" class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                <label @mouseover="click1" class="star star-1" for="star-1"></label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="btn star-width" :class="this.activeClass">{{this.message}}</div>
+                        </div>
                     </div>
                 </div>
+
                 <div>
                     <div class="mt-2" style="margin-left: 100px; font-size: 30px;">Tên sách: {{ model.title }}</div>
                     <div class="mt-2" style="margin-left: 100px; font-size: 20px;">Tên tác giả: {{ model.author }}</div>
@@ -40,26 +58,13 @@
                     <button type="submit" style="margin-left: 100px;" class="mt-3 btn btn btn-success">Thêm giỏ hàng</button>
                 </div>
             </div>
+
         </CCardBody>
         <CCardFooter>
         </CCardFooter>
             </form>
         </VeeForm>
 
-        <div class="d-flex justify-content-center">
-                    <div class="stars">
-                            <input class="star star-5" id="star-5" type="radio" name="star"/>
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star"/>
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star"/>
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star"/>
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star"/>
-                            <label class="star star-1" for="star-1"></label>
-                </div>
-        </div>
         <div>
             <CommentWrapper
                 :comments="this.data.comments"
@@ -121,7 +126,8 @@ export default {
             amount: "",
             urlStoreComment: this.data.urlStoreComment,
             urlGetComments: this.data.urlGetComments,
-
+            message: '',
+            activeClass: '',
 
         };
     },
@@ -171,6 +177,28 @@ export default {
             else{
                 this.status = 0;
             }
+        },
+        click1() {
+            this.message = 'Tôi ghét nó';
+            this.activeClass = 'btn-hate';
+        },
+        click2() {
+            this.message = 'Tôi không thích nó';
+            this.activeClass = 'btn-warning';
+        },
+        click3() {
+            this.message = 'Nó ổn';
+            this.activeClass = 'btn-danger';
+
+        },
+        click4() {
+            this.message = 'Tối thích nó';
+            this.activeClass = 'btn-primary';
+
+        },
+        click5() {
+            this.message = 'Tôi yêu nó';
+            this.activeClass = 'btn-success';
         },
     }
 
@@ -249,5 +277,11 @@ label.star:before {
 
     font-family: FontAwesome;
 
+}
+.btn-hate{
+    background-color: #C0C0C0;
+}
+.star-width{
+    width: 50%;
 }
 </style>

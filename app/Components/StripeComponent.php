@@ -19,6 +19,24 @@ class StripeComponent
         }
     }
 
+    public static function createTokenCard($request)
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        try {
+            return $stripe->tokens->create([
+                'card' => [
+                    'number' => $request->cardNumber,
+                    'exp_month' => $request->cardExpireMonth,
+                    'exp_year' => $request->cardExpireYear,
+                    'cvc' => $request->cardCvc,
+                ],
+            ]);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return false;
+        }
+    }
 //    public static function addProduct( $description)
 //    {
 //        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
