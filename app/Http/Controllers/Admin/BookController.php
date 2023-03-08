@@ -217,8 +217,36 @@ class BookController extends BaseController
 //        ]);
 
         // game
-        $copyID = [141];
+        $copyID = [142,141];
         $arrArmyId = [
+            '142' => [
+                14201,
+                14202,
+                14203,
+                14204,
+                14205,
+                14206,
+                14207,
+                14208,
+                14209,
+                14210,
+                14211,
+                14212,
+                14213,
+                14214,
+                14215,
+                14216,
+                14217,
+                14218,
+                14219,
+                14220,
+                14221,
+                14222,
+                14223,
+                14224,
+                14225,
+                14226,
+            ],
             '141' => [
                 14101,
                 14102,
@@ -259,7 +287,7 @@ class BookController extends BaseController
         // convert XML to PHP
 
 
-        $phpDataArray = $this->convertXMLToArrPHP('test.xml') ;
+        $phpDataArray = $this->convertXMLToArrPHP('test.xml');
         $arrMonsters = [];
         foreach ($phpDataArray as $key => $item) {
             $arrMonsters = $item;
@@ -281,72 +309,76 @@ class BookController extends BaseController
         fputcsv($file, $header);
         foreach ($copyID as $keyCopyId => $ID) {
             $checkID = true;
-            foreach ($arrArmyId[$ID] as $keyArmyID => $armyID) {
-                $check = true;
-                foreach ($arrMonsterID as $keyTeamId => $item) {
-                    if ($armyID == $keyTeamId) {
-                        foreach ($this->formatArr($arrMonsterID[$armyID]) as $keyMonsterId => $monsterID) {
-                            for ($i = 0; $i < count($arrMonsters); $i++) {
-                                if ($arrMonsters[$i]['@attributes']['htid'] == $monsterID) {
+            foreach ($arrArmyId as $key => $item) {
+                if ($ID == $key) {
+                    foreach ($arrArmyId[$ID] as $keyArmyID => $armyID) {
+                        $check = true;
+                        foreach ($arrMonsterID as $keyTeamId => $item) {
+                            if ($armyID == $keyTeamId) {
+                                foreach ($this->formatArr($arrMonsterID[$armyID]) as $keyMonsterId => $monsterID) {
+                                    for ($i = 0; $i < count($arrMonsters); $i++) {
+                                        if ($arrMonsters[$i]['@attributes']['htid'] == $monsterID) {
 
-                                    $desSkillNormal = '';
-                                    $desSkillRange = '';
-                                    for ($a = 0; $a < count($phpDataArraySkill['skill']); $a++) {
-                                        if ($arrMonsters[$i]['@attributes']['normalAtk'] == $phpDataArraySkill['skill'][$a]['@attributes']['id']) {
-                                            $desSkillNormal = $phpDataArraySkill['skill'][$a]['@attributes']['des'];
-                                        }
+                                            $desSkillNormal = '';
+                                            $desSkillRange = '';
+                                            for ($a = 0; $a < count($phpDataArraySkill['skill']); $a++) {
+                                                if ($arrMonsters[$i]['@attributes']['normalAtk'] == $phpDataArraySkill['skill'][$a]['@attributes']['id']) {
+                                                    $desSkillNormal = $phpDataArraySkill['skill'][$a]['@attributes']['des'];
+                                                }
 
-                                        if ($arrMonsters[$i]['@attributes']['rageAtkSkill'] == $phpDataArraySkill['skill'][$a]['@attributes']['id']) {
-                                            $desSkillRange = $phpDataArraySkill['skill'][$a]['@attributes']['des'];
+                                                if ($arrMonsters[$i]['@attributes']['rageAtkSkill'] == $phpDataArraySkill['skill'][$a]['@attributes']['id']) {
+                                                    $desSkillRange = $phpDataArraySkill['skill'][$a]['@attributes']['des'];
+                                                }
+                                            }
+
+                                            if ($check && $checkID) {
+                                                $row = [
+                                                    $ID,
+                                                    $armyID,
+                                                    $monsterID,
+                                                    $arrMonsters[$i]['@attributes']['desc'],
+                                                    0,
+                                                    '',
+                                                    $arrMonsters[$i]['@attributes']['normalAtk'],
+                                                    $desSkillNormal,
+                                                    $arrMonsters[$i]['@attributes']['rageAtkSkill'],
+                                                    $desSkillRange
+                                                ];
+                                                fputcsv($file, $row);
+                                                $checkID = false;
+                                            } else if ($check) {
+                                                $row = [
+                                                    "",
+                                                    $armyID,
+                                                    $monsterID,
+                                                    $arrMonsters[$i]['@attributes']['desc'],
+                                                    0,
+                                                    '',
+                                                    $arrMonsters[$i]['@attributes']['normalAtk'],
+                                                    $desSkillNormal,
+                                                    $arrMonsters[$i]['@attributes']['rageAtkSkill'],
+                                                    $desSkillRange
+                                                ];
+                                                fputcsv($file, $row);
+                                                $check = false;
+                                            } else {
+                                                $row = [
+                                                    "",
+                                                    "",
+                                                    $monsterID,
+                                                    $arrMonsters[$i]['@attributes']['desc'],
+                                                    0,
+                                                    '',
+                                                    $arrMonsters[$i]['@attributes']['normalAtk'],
+                                                    $desSkillNormal,
+                                                    $arrMonsters[$i]['@attributes']['rageAtkSkill'],
+                                                    $desSkillRange
+                                                ];
+                                                fputcsv($file, $row);
+                                            }
+
                                         }
                                     }
-
-                                    if ($check && $checkID) {
-                                        $row = [
-                                            $ID,
-                                            $armyID,
-                                            $monsterID,
-                                            $arrMonsters[$i]['@attributes']['desc'],
-                                            0,
-                                            '',
-                                            $arrMonsters[$i]['@attributes']['normalAtk'],
-                                            $desSkillNormal,
-                                            $arrMonsters[$i]['@attributes']['rageAtkSkill'],
-                                            $desSkillRange
-                                        ];
-                                        fputcsv($file, $row);
-                                        $checkID = false;
-                                    } else if ($check) {
-                                        $row = [
-                                            "",
-                                            $armyID,
-                                            $monsterID,
-                                            $arrMonsters[$i]['@attributes']['desc'],
-                                            0,
-                                            '',
-                                            $arrMonsters[$i]['@attributes']['normalAtk'],
-                                            $desSkillNormal,
-                                            $arrMonsters[$i]['@attributes']['rageAtkSkill'],
-                                            $desSkillRange
-                                        ];
-                                        fputcsv($file, $row);
-                                        $check = false;
-                                    } else {
-                                        $row = [
-                                            "",
-                                            "",
-                                            $monsterID,
-                                            $arrMonsters[$i]['@attributes']['desc'],
-                                            0,
-                                            '',
-                                            $arrMonsters[$i]['@attributes']['normalAtk'],
-                                            $desSkillNormal,
-                                            $arrMonsters[$i]['@attributes']['rageAtkSkill'],
-                                            $desSkillRange
-                                        ];
-                                        fputcsv($file, $row);
-                                    }
-
                                 }
                             }
                         }
