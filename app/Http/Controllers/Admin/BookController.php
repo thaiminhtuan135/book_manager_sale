@@ -29,9 +29,9 @@ class BookController extends BaseController
 
     public function index(Request $request)
     {
-        $arrArmyId = [
-            '147' => [14701, 14702, 14703, 14704, 14705, 14706, 14707, 14708, 14709, 14710, 14711, 14712, 14713, 14714, 14715, 14716, 14717, 14718, 14719, 14720, 14721, 14722, 14723, 14724, 14725],
-        ];
+//        $arrArmyId = [
+//            '147' => [14701, 14702, 14703, 14704, 14705, 14706, 14707, 14708, 14709, 14710, 14711, 14712, 14713, 14714, 14715, 14716, 14717, 14718, 14719, 14720, 14721, 14722, 14723, 14724, 14725],
+//        ];
 
         $xmlDataString = file_get_contents(public_path('skill.xml'));
         $xmlObject = simplexml_load_string($xmlDataString);
@@ -58,11 +58,15 @@ class BookController extends BaseController
         for ($i = 0; $i < count($arrTeam['team']); $i++) {
             $arrFormat[$arrTeam['team'][$i]['@attributes']['id']] = $this->convertStringToArray($arrTeam['team'][$i]['@attributes']['monsterID']);
         }
-//        dd($arrFormat);
-//        $arString = '1141011,0,1141012,1141013,0,1141014,0,1141015,0';
-//
-//        dd($this->convertStringToArray($arString));
 
+        $arrArmy = $this->convertXMLToArrPHP('army.xml');
+//        dd($arrArmy['army']);
+        $arrArmyId = [];
+        for ($i = 0; $i < count($arrArmy['army']); $i++) {
+//            dd($arrArmy['army'][$i]['@attributes']['id']);
+            $arrArmyId[$arrArmy['army'][$i]['@attributes']['id']] = $arrArmy['army'][$i]['@attributes']['monstersquadID'];
+        }
+//        dd($arrArmyId);
 
         $newSizeLimit = $this->newListLimit($request);
         return view('admin.book.index', [
