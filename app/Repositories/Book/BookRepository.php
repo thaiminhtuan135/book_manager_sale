@@ -3,6 +3,7 @@
 namespace App\Repositories\Book;
 
 use App\Components\CommonComponent;
+use App\Components\StripeComponent;
 use App\Models\Book;
 use App\Http\Controllers\BaseController;
 use App\Repositories\Book\BookInterface;
@@ -23,10 +24,7 @@ class BookRepository extends BaseController implements BookInterface
 
     public function get($request)
     {
-//        $books = $this->book->get();
-
         $newSizeLimit = $this->newListLimit($request);
-
         $bookBuilder = $this->book;
 
         if (isset($request['search_input'])) {
@@ -46,7 +44,6 @@ class BookRepository extends BaseController implements BookInterface
 //            $books = $bookBuilder->paginate($newSizeLimit);
 //        }
         return $books;
-//        return $books;
     }
 
     public function getById($id)
@@ -56,7 +53,6 @@ class BookRepository extends BaseController implements BookInterface
 
     public function store($request)
     {
-//        dd($request->all());
 
         DB::beginTransaction();
         $this->book->title = $request->title;
@@ -65,16 +61,21 @@ class BookRepository extends BaseController implements BookInterface
         $this->book->category = $request->category;
         $this->book->release_date = $request->release_date;
         $this->book->number_page = $request->number_page;
-//        $this->book->image = '/imgBook/' . $fileNameWeb ?? null;
-
+        $nameWeb = '';
         if ($request->hasFile('image')) {
             $fileWeb = $request->file('image');
+            $nameWeb = $fileWeb->getClientOriginalName();
             $extensionWeb = $fileWeb->getClientOriginalExtension(); // lay .png
             $fileNameWeb = CommonComponent::uploadFileName($extensionWeb);
             $pathWeb = CommonComponent::uploadFile('image-media', $fileWeb, $fileNameWeb);
-            $fileWeb->move('imgBook/', $fileNameWeb);
-            $this->book->image = '/storage/' . $pathWeb;
+            $pathWebS3 = CommonComponent::uploadFileS3('/image-media', $fileWeb, $fileNameWeb);
+//            $fileWeb->move('imgBook/', $fileNameWeb);
+            $this->book->image = $pathWebS3;
         }
+        $product = StripeComponent::addProduct($this->book->title, $this->book->image);
+        $this->book->product_id_s3 = $product->id;
+        $this->book->price = rand(100000, 999999);
+        StripeComponent::createPrice($this->book->price, $this->book->product_id_s3);
         if ($this->book->save()) {
             DB::commit();
             return true;
@@ -101,31 +102,33 @@ class BookRepository extends BaseController implements BookInterface
 
         if ($request->statusDelete == 1) {
             if (!$request->hasFile('image')) {
-                $filename = explode('/', $bookInfo->image);
-                CommonComponent::deleteFile('image-media', $filename[3]);
+//                $filename = explode('/', $bookInfo->image);
+//                CommonComponent::deleteFile('image-media', $filename[3]);
+                CommonComponent::deleteFileS3($bookInfo->image);
                 $bookInfo->image = null;
-
             }
 
         }
         if ($bookInfo->image) {
             if ($request->hasFile('image')) {
+                CommonComponent::deleteFileS3($bookInfo->image);
                 $fileWeb = $request->file('image');
                 $extensionWeb = $fileWeb->getClientOriginalExtension(); // lay .png
                 $fileNameWeb = CommonComponent::uploadFileName($extensionWeb);
-                $pathWeb = CommonComponent::uploadFile('image-media', $fileWeb, $fileNameWeb);
-                $filename = explode('/', $bookInfo->image);
-                CommonComponent::deleteFile('image-media', $filename[3]);
-                $bookInfo->image = '/storage/' . $pathWeb;
+//                $pathWeb = CommonComponent::uploadFile('image-media', $fileWeb, $fileNameWeb);
+                $pathWeb = CommonComponent::uploadFileS3('/image-media', $fileWeb, $fileNameWeb);
+//                $filename = explode('/', $bookInfo->image);
+//                CommonComponent::deleteFile('image-media', $filename[3]);
+                $bookInfo->image = $pathWeb;
             }
-        }
-        elseif ($request->hasFile('image')) {
+        } elseif ($request->hasFile('image')) {
             $fileWeb = $request->file('image');
             $extensionWeb = $fileWeb->getClientOriginalExtension(); // lay .png
             $fileNameWeb = CommonComponent::uploadFileName($extensionWeb);
             $pathWeb = CommonComponent::uploadFile('image-media', $fileWeb, $fileNameWeb);
-            $fileWeb->move('imgBook/', $fileNameWeb);
-            $bookInfo->image = '/storage/' . $pathWeb;
+            $pathWebS3 = CommonComponent::uploadFileS3('/image-media', $fileWeb, $fileNameWeb);
+//            $fileWeb->move('imgBook/', $fileNameWeb);
+            $bookInfo->image = $pathWebS3;
         }
         if ($bookInfo->save()) {
             DB::commit();
@@ -142,6 +145,7 @@ class BookRepository extends BaseController implements BookInterface
         if (!$bookInfo) {
             return false;
         }
+        CommonComponent::deleteFileS3($bookInfo->image);
         return $bookInfo->delete();
     }
 

@@ -1,14 +1,10 @@
 <template>
+
   <div class="container-fluid">
     <div class="fade-in">
       <CCard>
-        <VeeForm
-          as="div"
-          v-slot="{ handleSubmit }"
-          @invalid-submit="onInvalidSubmit"
-        >
-          <form
-            method="POST"
+        <VeeForm as="div" v-slot="{ handleSubmit }" @invalid-submit="onInvalidSubmit">
+            <form method="POST"
             @submit="handleSubmit($event, onSubmit)"
             :action="data.urlStore"
             ref="formData"

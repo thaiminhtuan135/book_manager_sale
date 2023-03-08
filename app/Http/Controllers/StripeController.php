@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Product\ProductRepository;
+use Faker\Provider\Base;
 use Illuminate\Http\Request;
 
-class StripeController extends Controller
+class StripeController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +22,7 @@ class StripeController extends Controller
 
     public function index(Request $request)
     {
-        return view('stripe.index',[
+        return view('stripe.index', [
             'product' => $this->product->getCard($request),
         ]);
     }
@@ -92,26 +93,32 @@ class StripeController extends Controller
         //
     }
 
-    public function getSession()
+    public function getSession(Request $request)
     {
+        $arr = [];
+        $data = $this->product->getCardDetail($request);
+        $data = $data->items();
+
+        foreach ($data as $item) {
+//            $image['image'] = [$item->books->image];
+            $arr[] = [
+                'price_data' => [
+                    'currency' => 'vnd',
+                    'unit_amount' => $item->books->price,
+                    'product_data' => [
+                        'name' => $item->books->title,
+                        'images' => [$item->books->image],
+                    ],
+
+                ],
+                'quantity' => $item->amount,
+            ];
+        }
         $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
         $checkout = $stripe->checkout->sessions->create([
             'success_url' => 'http://localhost:8000/success',
             'cancel_url' => 'http://localhost:8000/cancel',
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'usd',
-                        'unit_amount' => 5000,
-                        'product_data' => [
-                            'name' =>  "cool stripe checkout",
-                            'images' => ['https://s3.us-west-2.amazonaws.com/lalala.com/Screenshot_20221130_125520.png?fbclid=IwAR1u-k5EGNkLaJznEGLkfyMRMiTQL8MRX8ZyiUbWzTwO91VaBmTKixUQyXo'],
-                        ],
-
-                    ],
-                    'quantity' => 2,
-                ],
-            ],
+            'line_items' => $arr,
             'mode' => 'payment',
         ]);
 
@@ -132,6 +139,24 @@ class StripeController extends Controller
         ];
         return $results;
 //        return $checkout;
+    }
+
+    public function success(Request $request)
+    {
+//        dd('thanhtoanthanhcong');
+//        dd('ds');
+        $data = $this->product->getCardDetail($request);
+        $data = $data->items();
+
+//        $this->product->DeleteCard($data);
+        if ($this->product->DeleteCard($data)) {
+            $this->setFlash(__('Thanh toán thành công'));
+            return redirect()->route('card.index');
+        }
+        $this->setFlash(__('Thanh toán thất bại'));
+
+        return redirect()->route('card.index');
+//        dd('ds');
     }
 
     public function webhook()

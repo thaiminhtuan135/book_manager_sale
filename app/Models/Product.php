@@ -15,10 +15,17 @@ class Product extends Model
         'user_id',
         'amount',
     ];
+    protected $appends = ['destroy_url'];
 
     public function books()
     {
         return $this->hasOne(Book::class, 'id', 'book_id');
     }
+
+    public function getDestroyUrlAttribute()
+    {
+        return route('card.destroy', $this->id);
+    }
+
 
 }

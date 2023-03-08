@@ -39,4 +39,31 @@ class CommonComponent
 
         return true;
     }
+
+    public static function uploadFileS3($folder, $file, $fileName)
+    {
+        try {
+            $outputFile = $folder.$fileName;
+            Storage::disk('s3')->put($outputFile, file_get_contents($file));
+
+            return env('AWS_URL').$outputFile;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public static function deleteFileS3($path)
+    {
+        $name = explode('/', $path);
+
+        try {
+            Storage::disk('s3')->delete($name[4]);
+        } catch (Exception $exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

@@ -84,6 +84,13 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
+                                    <button class="btn btn-outline-success">
+                                        @if(Auth::guard('user')->user())
+                                            <a href="{{route('product.index')}}" style="text-decoration: none;">Mua sách</a>
+                                        @else
+                                            <a href="{{route('login.index')}}" style="text-decoration: none;">Mua sách</a>
+                                        @endif
+                                    </button>
                                     <div class="d-flex justify-content-between">
                                         <swiper-slide></swiper-slide>
 {{--                                        <swiper-slide></swiper-slide>--}}

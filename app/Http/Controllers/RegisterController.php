@@ -62,7 +62,7 @@ class RegisterController extends BaseController
                 $data->dob = $request["dob" . $i];
                 $data->telephone = $request["telephone" . $i];
                 $data->email = $request["email" . $i];
-                $data->role_id = $request["role_id"];
+                $data->role_id = 2;
                 $data->password = $request["password" . $i];
                 $customer = StripeComponent::createCustomer($request["email" . $i], $request["name" . $i]);
                 $data->customer_id = $customer->id;

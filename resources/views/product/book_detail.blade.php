@@ -7,6 +7,8 @@
         'comments' => $comments,
         'urlStoreComment' => route('user.addComment'),
         'urlGetComments' => route('user.getComment'),
+        'urlEvaluate' => route('product.evaluate'),
+
 ]) }}">
     </book-detail>
 @endsection

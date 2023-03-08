@@ -46,27 +46,45 @@ Route::group([
 ], function () {
     Route::resource('user/book', BookController::class);
     Route::post('export', [BookController::class, 'export'])->name('bookExport');
+    Route::post('evaluate', [ProductController::class, 'evaluate'])->name('product.evaluate');
     Route::get('product/{id}', [ProductController::class, 'bookDetail'])->name('product.detail');
     Route::resource('user/product', ProductController::class);
     Route::resource('user/card', CardController::class);
+//    Route::get('/success', [StripeController::class,'success']);
+//    Route::get('/success', function (){
+//        return view('app');
+//    });
+    Route::post('/getSession', [StripeController::class,'getSession']);
+    Route::get('/cancel', function (){ return view('app');});
+//    Route::get('/success', function (){ return view('app');});
+    Route::resource('stripe', StripeController::class);
     Route::post('/addComment', [CommentController::class, 'handleAddComment'])->name('user.addComment');
     Route::post('/getComment', [CommentController::class, 'handleGetComment'])->name('user.getComment');
-
-
-
+//    Route::get('/success', [StripeController::class,'success']);
+//    Route::post('/getSession', [StripeController::class,'getSession']);
+//    Route::get('/cancel', function (){ return view('app');});
+//    Route::resource('stripe', StripeController::class);
 //    Route::get('language/{language}', [LanguageController::class,'index'])->name('language.index');
 //    Route::get('/test', function () {
 //        return view('admin.vi');
 //    });
 });
-
-Route::resource('stripe', StripeController::class);
+//Route::get('/success', [StripeController::class,'success']);
+//Route::resource('stripe', StripeController::class);
 //Route::get('{any}', [LoginController::class, 'index']);
-Route::get('/getSession', [StripeController::class,'getSession']);
-Route::get('/cancel', function (){ return view('app');});
-Route::get('/success', function (){ return view('app');});
+//Route::post('/getSession', [StripeController::class,'getSession']);
+//Route::get('/cancel', function (){ return view('app');});
+//Route::get('/success', function (){ return view('app');});
+//Route::get('/success', [StripeController::class,'success']);
+Route::get('/success', function (){
+    return view('app');
+});
 //Mail
+//Route::resource('user/card', CardController::class);
 
+//Route::get('/success', function (){ return view('app');});
+//Route::get('/success', [StripeController::class,'success']);
+//Route::get('/success', [StripeController::class,'success']);
 
 
 
@@ -84,12 +102,12 @@ Route::group([
     });
 });
 // cart
-Route::get('/lala', function () {
-    return Cart::add('293ad', 'Product 1', 1, 9.99, 550);
-
-});
-
-Route::get('/cart', function () {
-    return Cart::content();
-});
+//Route::get('/lala', function () {
+//    return Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+//
+//});
+//
+//Route::get('/cart', function () {
+//    return Cart::content();
+//});
 //Route::get('/', [LoginController::class, 'index']);

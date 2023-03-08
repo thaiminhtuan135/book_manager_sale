@@ -37,17 +37,31 @@ class StripeComponent
             return false;
         }
     }
-//    public static function addProduct( $description)
-//    {
-//        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
-//        try {
-//            return $stripe->products->create([
-//                'description' => $description,
-//
-//
-//            ]);
-//        } catch (\Throwable $th) {
-//            Log::info($th->getMessage());
-//        }
-//    }
+    public static function addProduct($name,$image)
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+        try {
+            return $stripe->products->create([
+                'name' => $name,
+                'images' => [$image],
+
+            ]);
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
+    }
+
+    public static function createPrice($amount , $id)
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+        try {
+            return $stripe->prices->create([
+                'unit_amount' => $amount,
+                'currency' => 'vnd',
+                'product' => $id,
+            ]);
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
+    }
 }

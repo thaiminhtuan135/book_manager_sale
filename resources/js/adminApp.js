@@ -1,84 +1,88 @@
 // require('./bootstrap');
-import {createApp} from "vue";
-import CoreuiVue from "@coreui/vue";
-import {configure, defineRule} from "vee-validate";
-import Datepicker from '@vuepic/vue-datepicker';
+import {createapp} from "vue";
+import coreuivue from "@coreui/vue";
+import {configure, definerule} from "vee-validate";
+import datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-// window.Vue = require('vue')
-// window.eventBus = new Vue({});
+import {fontawesomeicon} from "@fortawesome/vue-fontawesome";
+// window.vue = require('vue')
+// window.eventbus = new vue({});
 configure({
-    validateOnBlur: false,
-    validateOnChange: false,
-    validateOnInput: true,
-    validateOnModelUpdate: false,
+    validateonblur: false,
+    validateonchange: false,
+    validateoninput: true,
+    validateonmodelupdate: false,
 });
 
-const app = createApp({});
-app.use(CoreuiVue);
-app.use(CommentGrid);
-import VueSweetalert2 from "vue-sweetalert2";
+const app = createapp({});
+app.use(coreuivue);
+app.use(commentgrid);
+import vuesweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
-app.use(VueSweetalert2);
+app.use(vuesweetalert2);
 
-defineRule('code', value => {
-    return /^[A-Za-z0-9]*$/i.test(value);
+definerule('code', value => {
+    return /^[a-za-z0-9]*$/i.test(value);
 });
-defineRule('number', value => {
+definerule('number', value => {
     return /^[0-9]*$/i.test(value);
 });
-defineRule('phone_number', value => {
+definerule('phone_number', value => {
     return /^0(\d{9})+$/i.test(value.trim());
 });
-defineRule('dob', value => {
+definerule('dob', value => {
     return /^(\d{4}-\d{2}-\d{2})+$/i.test(value.trim());
 });
 
-import CommentGrid from 'vue-comment-grid'
-import Test from "./components/test.vue";
-import BtnDeleteConfirm from "./components/common/btnDeleteConfirm.vue";
-import DataEmpty from "./components/common/dataEmpty.vue";
-import PopupAlert from "./components/common/popupAlert.vue";
-import LimitPageOption from "./components/common/limitPageOption.vue";
-import CompanyCreate from "./components/company/create.vue";
-import CompanyEdit from "./components/company/edit.vue";
-import Login from "./components/login/login.vue";
-import Register from "./components/login/register.vue"
-import BookCreate from "./components/book/create.vue";
-import BookEdit from "./components/book/edit.vue";
-import BookExport from "./components/book/export.vue";
-import ForgotPassword from "./components/forgotPassword/index.vue";
-import ResetPassword from "./components/resetPassword/index.vue";
-import SwiperSlide from "./components/common/swiper.vue"
-import BookDetail from "./components/product/book_detail.vue"
+import commentgrid from 'vue-comment-grid'
+import test from "./components/test.vue";
+import btndeleteconfirm from "./components/common/btndeleteconfirm.vue";
+import dataempty from "./components/common/dataempty.vue";
+import popupalert from "./components/common/popupalert.vue";
+// import limitpageoption from "./components/common/limitpageoption.vue";
+import companycreate from "./components/company/create.vue";
+import companyedit from "./components/company/edit.vue";
+import login from "./components/login/login.vue";
+import register from "./components/login/register.vue"
+import bookcreate from "./components/book/create.vue";
+import bookedit from "./components/book/edit.vue";
+import bookexport from "./components/book/export.vue";
+import forgotpassword from "./components/forgotpassword/index.vue";
+import resetpassword from "./components/resetpassword/index.vue";
+import swiperslide from "./components/common/swiper.vue"
+import bookdetail from "./components/product/book_detail.vue"
+import product from "./components/product/product.vue"
+import card from "./components/card/card.vue"
 
-import FakeLogin from "./components/login/fakeLogin.vue";
-import fakeLogin from "./components/login/fakeLogin";
-import {VueRecaptcha} from "vue-recaptcha";
-// import Vue from "laravel-mix/src/components/Vue";
-import Stripe from "./components/stripe/index.vue"
+import fakelogin from "./components/login/fakelogin.vue";
+import fakelogin from "./components/login/fakelogin";
+import {vuerecaptcha} from "vue-recaptcha";
+// import vue from "laravel-mix/src/components/vue";
+import stripe from "./components/stripe/index.vue"
 
-app.component("test", Test);
-app.component("btn-delete-confirm", BtnDeleteConfirm);
-app.component("data-empty", DataEmpty);
-app.component("popup-alert", PopupAlert);
-app.component("limit-page-option", LimitPageOption);
-app.component("company-create", CompanyCreate);
-app.component("company-edit", CompanyEdit);
-app.component("login", Login);
-app.component("register", Register);
-app.component("book-create", BookCreate);
-app.component("book-edit", BookEdit);
-app.component("book-export", BookExport);
-app.component("fake-login", fakeLogin);
-app.component('vue-recaptcha', VueRecaptcha)
-app.component('forgot-password', ForgotPassword)
-app.component('reset-password', ResetPassword)
-app.component('swiper-slide', SwiperSlide)
-app.component('book-detail', BookDetail)
-app.component('comment-grid', CommentGrid)
-app.component('stripe', Stripe)
+app.component("test", test);
+app.component("btn-delete-confirm", btndeleteconfirm);
+app.component("data-empty", dataempty);
+app.component("popup-alert", popupalert);
+// app.component("limit-page-option", limitpageoption);
+app.component("company-create", companycreate);
+app.component("company-edit", companyedit);
+app.component("login", login);
+app.component("register", register);
+app.component("book-create", bookcreate);
+app.component("book-edit", bookedit);
+app.component("book-export", bookexport);
+app.component("fake-login", fakelogin);
+app.component('vue-recaptcha', vuerecaptcha)
+app.component('forgot-password', forgotpassword)
+app.component('reset-password', resetpassword)
+app.component('swiper-slide', swiperslide)
+app.component('book-detail', bookdetail)
+app.component('comment-grid', commentgrid)
+app.component('stripe', stripe)
+app.component('product', product)
+app.component('card', card)
 
 
 app.mount("#app");

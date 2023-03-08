@@ -1,4 +1,5 @@
 @php
+use App\Enums\UserRole;
 $routeName = \Route::currentRouteName();
 
 $routeCompanies=[
@@ -10,7 +11,9 @@ $routeBook=[
 $routeHome=[
     'homePage',
 ];
-
+$routeProduct=[
+    'product.index',
+];
 
 @endphp
     <!-- Main Sidebar Container -->
@@ -26,16 +29,24 @@ $routeHome=[
                 <div class="simplebar-offset">
                     <div class="simplebar-content-wrapper">
                         <div class="simplebar-content">
+                            @if(Auth::guard('user')->user()->role_id == UserRole::SYSTEM_ADMIN)
                             <li class="nav-item">
                                 <a class="nav-link {{ in_array($routeName, $routeBook) ? 'active' : '' }}" href="{{ route('book.index') }}">
                                     <i class="nav-icon fa fa-money" aria-hidden="true"></i>
                                     {{__('List book')}}
                                 </a>
                            </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link {{ in_array($routeName, $routeHome) ? 'active' : '' }}" href="{{ route('homePage') }}">
                                     <i class="nav-icon fa fa-money" aria-hidden="true"></i>
                                     Trang chủ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ in_array($routeName, $routeProduct) ? 'active' : '' }}" href="{{ route('product.index') }}">
+                                    <i class="nav-icon fa fa-money" aria-hidden="true"></i>
+                                    Mua sách
                                 </a>
                             </li>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusCode;
 use App\Repositories\Book\BookRepository;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Product\ProductRepository;
@@ -123,4 +124,26 @@ class ProductController extends BaseController
             'comments' => $comments,
         ]);
     }
+
+    public function evaluate(Request $request)
+    {
+        $star = $request->star;
+        $book_id = $request->book_id;
+        $product = $this->product->storeEvaluate($book_id , $star);
+
+        if ($product) {
+            return response()->json([
+                'star' => $product->star,
+            ], StatusCode::OK);
+        }
+
+        return response()->json([
+            'success' => false,
+        ], StatusCode::BAD_REQUEST);
+    }
+
+//    public function ()
+//    {
+//
+//    }
 }

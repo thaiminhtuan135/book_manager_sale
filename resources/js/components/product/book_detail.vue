@@ -24,15 +24,15 @@
                         <div class="d-flex justify-content-center">
                             <div class="stars">
                                 <input class="star star-5" id="star-5" type="radio" name="star"/>
-                                <label @mouseover="click5" class="star star-5" for="star-5"></label>
+                                <label @click="click5" class="star star-5" for="star-5"></label>
                                 <input class="star star-4" id="star-4" type="radio" name="star"/>
-                                <label @mouseover="click4" class="star star-4" for="star-4"></label>
+                                <label @click="click4" class="star star-4" for="star-4"></label>
                                 <input class="star star-3" id="star-3" type="radio" name="star"/>
-                                <label @mouseover="click3" class="star star-3" for="star-3"></label>
+                                <label @click="click3" class="star star-3" for="star-3"></label>
                                 <input class="star star-2" id="star-2" type="radio" name="star"/>
-                                <label @mouseover="click2" class="star star-2" for="star-2"></label>
+                                <label @click="click2" class="star star-2" for="star-2"></label>
                                 <input class="star star-1" id="star-1" type="radio" name="star"/>
-                                <label @mouseover="click1" class="star star-1" for="star-1"></label>
+                                <label @click="click1" class="star star-1" for="star-1"></label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -42,15 +42,15 @@
                 </div>
 
                 <div>
-                    <div class="mt-2" style="margin-left: 100px; font-size: 30px;">Tên sách: {{ model.title }}</div>
-                    <div class="mt-2" style="margin-left: 100px; font-size: 20px;">Tên tác giả: {{ model.author }}</div>
+                    <div class="mt-2 book-title" >Tên sách: {{ model.title }}</div>
+                    <div class="mt-2 book-author">Tên tác giả: {{ model.author }}</div>
                     <div class="mt-2" >
-                        <a class="btn btn-primary" style="margin-left: 100px;" @click="changeStatus"><i style="margin-right: 4px;" class="fa-regular fa-thumbs-up"></i>Thích {{status}}</a>
+                        <a class="btn btn-primary ml-100" @click="changeStatus"><i style="margin-right: 4px;" class="fa-regular fa-thumbs-up"></i>Thích {{status}}</a>
                         <a class="btn btn-primary" style="margin-left: 20px;">Chia sẻ</a>
                     </div>
 
                     <div class="mt-2" style="margin-left: 100px; font-size: 20px;">Tình trạng : Còn hàng </div>
-                    <label style="margin-left: 100px;font-size: 20px;" for="amount">Số lượng</label>
+                    <label class="book-author" for="amount">Số lượng</label>
                     <Field  class="form-control amount mt-2" v-model="amount" id="amount" rules="required|amount|number" name="amount"/>
                     <div>
                         <ErrorMessage style="margin-left: 100px" class="error" name="amount"/>
@@ -121,6 +121,7 @@ export default {
             csrfToken: Laravel.csrfToken,
             flagShowLoader: false,
             model: this.data.book,
+            star: 0,
             filePreviewWeb: "",
             status: 0,
             amount: "",
@@ -181,27 +182,54 @@ export default {
         click1() {
             this.message = 'Tôi ghét nó';
             this.activeClass = 'btn-hate';
+            this.star = 1;
+            this.evaluate();
         },
         click2() {
             this.message = 'Tôi không thích nó';
             this.activeClass = 'btn-warning';
+            this.star = 2;
+            this.evaluate();
+
         },
         click3() {
             this.message = 'Nó ổn';
             this.activeClass = 'btn-danger';
+            this.star = 3;
+            this.evaluate();
+
 
         },
         click4() {
             this.message = 'Tối thích nó';
             this.activeClass = 'btn-primary';
-
+            this.star = 4;
+            this.evaluate();
         },
         click5() {
             this.message = 'Tôi yêu nó';
-            this.activeClass = 'btn-success';
+            this.activeClass = 'i-love-it';
+            this.star = 5;
+            this.evaluate();
+
+        },
+        evaluate() {
+            console.log(this.star);
+            const data = {
+                star: this.star,
+                book_id: this.model.id,
+
+            }
+            axios
+                .post(this.data.urlEvaluate, data)
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.data)
+
+                }).catch(() => {
+            });
         },
     }
-
 
 }
 </script>
@@ -283,5 +311,19 @@ label.star:before {
 }
 .star-width{
     width: 50%;
+}
+.i-love-it{
+    background-color: hotpink;
+}
+.book-title{
+    margin-left: 100px;
+    font-size: 30px;
+}
+.book-author{
+    margin-left: 100px;
+    font-size: 20px;
+}
+.ml-100{
+    margin-left: 100px
 }
 </style>

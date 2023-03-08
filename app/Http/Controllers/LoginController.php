@@ -50,7 +50,7 @@ class LoginController extends BaseController
         if (Auth::guard('user')->attempt($credentials)) {
             if(Auth::guard('user')->user()->role_id != UserRole::SYSTEM_ADMIN) {
 //                Auth::guard('user')->logout();
-                return redirect('/test');
+                return redirect(route('product.index'));
             }
             $this->setFlash(__('LoginSuccess'));
             return redirect(route('book.index'));

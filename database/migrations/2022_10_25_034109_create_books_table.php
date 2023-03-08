@@ -21,6 +21,8 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->integer('number_page')->nullable();
             $table->string('image')->nullable();
+            $table->string('product_id_s3',255)->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

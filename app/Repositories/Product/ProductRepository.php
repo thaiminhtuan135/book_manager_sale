@@ -71,7 +71,7 @@ class ProductRepository extends BaseController implements ProductInterface
 
     public function getCardDetail($request)
     {
-        $newSizeLimit = $this->newListLimit($request);
+//        $newSizeLimit = $this->newListLimit($request);
         $productBuilder = $this->product;
 
         $productBuilder = $productBuilder->with('books')->where('user_id', Auth::guard('user')->user()->id);
@@ -94,4 +94,32 @@ class ProductRepository extends BaseController implements ProductInterface
         $productBuilder = $productBuilder->with('books')->where('user_id', Auth::guard('user')->user()->id)->get();
         return $productBuilder;
     }
+    public function DeleteCard($arr)
+    {
+        // TODO: Implement DeleteCard() method.
+        if (!$arr) {
+            return false;
+        }
+        foreach ($arr as $item) {
+            $item->delete();
+        }
+        return true;
+    }
+
+    public function storeEvaluate($book_id , $star)
+    {
+        // TODO: Implement storeEvaluate() method.
+        $user = Auth::guard('user')->user();
+        $productInfor = $this->product->where('user_id', $user->id)
+            ->where('book_id', $book_id)->first();
+        dd($productInfor);
+        $productInfor->star = $star;
+        dd($productInfor->star);
+        if ($productInfor->save()) {
+            return $productInfor;
+        }
+        return false;
+    }
+
+
 }

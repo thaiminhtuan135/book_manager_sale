@@ -23,5 +23,7 @@ class Book extends Model
         'release_date',
         'number_page',
         'image',
+        'product_id_s3',
+        'price',
     ];
 }
